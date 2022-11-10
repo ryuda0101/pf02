@@ -96,7 +96,7 @@ header .center .gnb > li > a .korMenu {
   opacity: 0;
 }
 header .center .gnb > li:hover .sub_gnb {
-  height: 130px;
+  height: 150px;
 }
 header .center .gnb > li .sub_gnb {
   position: absolute;
@@ -208,4 +208,56 @@ footer .center .copyright {
   100% {
     transform: translateX(-100%);
   }
+}
+
+#menu_wrap {
+  display: flex;
+  justify-content: center;
+}
+#menu_wrap .center {
+  width: 80%;
+}
+#menu_wrap .center .type_btns {
+  display: flex;
+  justify-content: space-between;
+  width: 50%;
+  margin: 0 auto;
+}
+#menu_wrap .center .type_btns li {
+  width: 15%;
+}
+#menu_wrap .center .menu_list {
+  display: flex;
+  flex-wrap: wrap;
+}
+#menu_wrap .center .menu_list .menu_box .img_box {
+  width: 130px;
+}
+#menu_wrap .center .menu_list .menu_box .img_box img {
+  width: 100%;
+}
+#menu_wrap .center .menu_list .menu_box .text_box {
+  width: 130px;
+}
+#menu_wrap .center .menu_list .menu_box .text_box p {
+  width: 100%;
+}
+
+#admin_login {
+  display: flex;
+  justify-content: center;
+}
+#admin_login .center {
+  width: 80%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#admin_login .center form {
+  display: flex;
+  flex-direction: column;
+}
+#admin_login .center form .line input {
+  border: 1px solid #ddd;
 }

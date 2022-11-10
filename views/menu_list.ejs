@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>메뉴 리스트</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- 아이콘 관련 링크 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+</head>
+<body>
+    <%- include("common/header.ejs") %>
+    <div id="menu_wrap">
+        <div class="center">
+            <ul class="type_btns">
+                <li><a href="/menu/doughnut">도넛</a></li>
+                <li><a href="/menu/jam">잼</a></li>
+                <li><a href="/menu/coffee">커피</a></li>
+                <li><a href="/menu/latte">라떼</a></li>
+                <li><a href="/menu/tea">티</a></li>
+                <li><a href="/menu/ade">에이드</a></li>
+            </ul>
+            <div class="menu_list">
+                <% for(let i = 0; i < prdData.length; i++){ %>
+                <div class="menu_box">
+                    <div class="img_box">
+                        <img src="/upload/<%- prdData[i].thumbnail %>">
+                    </div>
+                    <div class="text_box">
+                        <p><%- prdData[i].name %></p>
+                        <p><%- prdData[i].category %></p>
+                    </div>
+                </div>
+                <% } %>
+            </div>
+        </div>
+    </div>
+    <%- include("common/footer.ejs") %>
+</body>
+</html>

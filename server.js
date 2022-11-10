@@ -54,7 +54,7 @@ MongoClient.connect("mongodb+srv://admin:qwer1234@testdb.g2xxxrk.mongodb.net/?re
     if(err){ return console.log(err);}
 
     // 위에서 만든 db변수에 최종적으로 연결 / ()안에는 mongodb atlas에서 생성한 데이터 베이스 이름 집어넣기
-    db = result.db("testdb");
+    db = result.db("portfolio02");
 
     // db연결이 제대로 되었다면 서버 실행
     app.listen(port,function(){
@@ -67,79 +67,211 @@ app.get("/",(req,res) => {
     res.render("index.ejs");
 });
 
-// html과 같은 정적인 파일 보낼때는 app.get.sendFile(__dirname + "/불러들일 html파일 경로")
-// ejs와 같은 동적인 파일 보낼때는 app.get.render("불러들일 ejs파일")
-// 특정 주소로 이동해달라고 요청할때는 res.redirect("/이동할 경로")
+
+// 로그인 기능 수행 작업
+// 로그인 화면으로 요청
+app.get("/admin",function(req,res){
+    res.render("admin_login");
+});
+
+// 로그인 페이지에서 입력한 아이디, 비밀번호 검증처리 요청
+// app.post("/경로",여기 사이에 ↓ 입력,function(req,res){});
+// passport.authenticate('local', {failureRedirect : '/fail'})
+app.post("/login",passport.authenticate('local', {failureRedirect : '/fail'}),function(req,res){
+    //                                                   ↑ 실패시 위의 경로로 요청
+    // ↓ 로그인 성공시 메인페이지로 이동
+    res.redirect("/admin/prdList")
+    // res.send("로그인 성공");
+});
+
+// 로그인 실패시 fail 경로
+app.get("/fail",(req,res) => {
+    res.send("로그인 실패");
+});
+
+// /login 경로 요청시 passport.autenticate() 함수 구간이 아이디, 비밀번호 로그인 검증 구간
+passport.use(new LocalStrategy({
+    usernameField: 'adminId',    // login.ejs에서 입력한 아이디의 name값
+    passwordField: 'adminPass',    // login.ejs에서 입력한 비밀번호의 name값
+    session: true,      // 세션을 이용할것인지에 대한 여부
+    passReqToCallback: false,   // 아이디와 비밀번호 말고도 다른 항목들을 더 검사할것인가에 대한 여부
+  }, function (id, pass, done) {
+    db.collection('user').findOne({ adminId: id }, function (err, result) {
+      if (err) return done(err)
+    // 아래의 message는 필요에 따라 뻴수도 있다. 
+      if (!result) return done(null, false, { message: '존재하지않는 아이디 입니다' })
+      if (pass == result.adminPass) {
+        return done(null, result)
+      } else {
+        return done(null, false, { message: '비번이 틀렸습니다' })
+      }
+    })
+}));
 
 
-// get요청으로 join.ejs 화면 응답받기
-// ex.
-// app.get("/호스트8080 뒤에 붙을 주소 이름",function(req,res){
-//     res.render("응답받을 ejs파일 이름");
-// });
+// 최초의 로그인시 한번 실행
+// serializeUser    →   처음 로그인 했을 시 해당 사용자의 아이디를 기반으로 세션을 생성함
+// ↓ 여기서 생성된 매게변수 user로 req.user~~를 쓸 수 있다.
+passport.serializeUser(function (user, done) {
+     // ↓ 서버에는 세션을 만들고 / 사용자 웹 브라우저에는 쿠키를 만들어준다. 
+    done(null, user.adminId)
+});
 
-// post요청으로 join.ejs에서 입력한 value값 콜렉션에 넣어주기
-// ex.
-// app.post("/폼태그에서 입력한 action의 경로",function(req,res){
-//     // 입력한 데이터값 요청받은거는 form 태그에서 name 속성값 이름지정필수
-//     // 데이터베이스에 값 저장하는 방법 db.collection("altas 사이트에서 본인이 생성한 콜렉션 이름 집어넣기").insertOne()
-//     db.collection("데이터베이스의 컬렉션 이름").insertOne({
-//         // ↓ 여러개의 객체로 데이터를 보내준다.
-//         // ex. 프로퍼티명: 추가할 데이터값
-//         userId:req.body.userId,      ←   컬렉션에 넣을때 넣어줄 이름:req.body.input에서 입력한 name값
-//         userpass:req.body.pass,
-//         userPassCheck:req.body.passCh
-//         // ↓ 전달받은 데이터를 받아서 실행할 코드. / ↓ 여기에 페이지 이동하는 기능이 들어간다.
-//     },function(err,result){
-//         // 에러가 발생했을 경우 메세지 출력 (선택사항임. 안쓴다고 해서 문제가 되지는 않는다.)
-//         if (err) {return console.log(err);}
-//         res.send("가입이 완료되었습니다.");      ←   결과 화면에 출력될것
-//     });
-//     데이터 값을 가져와서 화면에 보여주고자 할 때
-//     db.collection("joinTest").find().toArray(function(err,result){
-//         res.render("welcome.ejs",{useritem:result});
-//     })
-// });
+// 로그인 할 때마다 실행
+// deserializeUser  →   로그인을 한 후 다른 페이지들을 접근할 시 생성된 세션에 담겨있는 회원정보 데이터를 보내주는 처리
+passport.deserializeUser(function (adminId, done) {
+    db.collection("user").findOne({adminId:adminId},function(err,result){
+        done(null,result)
+    });
+});
 
+// 로그아웃 기능 작업
+app.get("/logout",function(req,res){
+    // 서버의 세션을 삭제하고, 본인 웹브라우저의 쿠키를 삭제한다.
+    req.session.destroy(function(err,result){
+        // 지워줄 쿠키를 선택한다. / 콘솔 로그의 application → cookies에 가면 name에서 확인할 수 있다.
+        res.clearCookie("connect.sid")
+        // 로그아웃 후 다시 메인페이지로 돌아가기
+        res.redirect("/admin");
+    });
+});
 
-// 게시판 만들고 게시글 번호 부여하기
-// 1. 데이터베이스에서 컬렉션을 2개 만든다.
-//      하나는 데이터를 담을 컬렉션 / 하나는 데이터의 갯수를 담아줄 컬렉션
-// 2. ejs를 3개 만들어준다.
-//      하나는 데이터를 작성할 페이지 / 하나는 데이터를 수정할 페이지 / 하나는 데이터를 보여줄 페이지
-// 3. db에서 데이터의 갯수를 담아줄 컬렉션에 insert document로 ObjectId를 string에서 Int32 또는 Int64로 바꿔주고 totalCount값을 만들고 그 안에 0을 담아준다. 또한 name으로 개시물갯수라는 객체를 추가로 만들어준다. 
-// 4. db 컬렉션에서 findOne으로 갯수를 담아줄 컬렉션을 찾아서 가져온다.
-// 5. app.post작업으로 데이터를 작성할 페이지.ejs에서 입력한 값을 객체형식으로 db의 컬렉션에 받아준다.
-// 6. 데이터를 보여줄 페이지.ejs에서 db의 컬렉션에 담긴 값을 가져와서 화면에 보여준다.
+// 로그인 했는지 않했는지 확인하는 작업
+// app.get("/list",function(req,res){
+// /list 경로를 입력하면 ↓ 아래의 ejs가 출력되고, 동시에 userData에 로그인 정보를 담아서 보내준다.
+// passport.serializeUser(function (user, done){}에서 써준 코드인 user를 써서 그 안에 담긴 데이터를 가져온다.
+// 즉, req.user는 로그인 했을 때 담긴 아이디, 비밀번호, 메일주소, 전화번호의 데이터를 말한다.
+//     res.render("brd_list",{userData:req.user});
+// })
 
 
-// 데이터 수정하기
+// 파일 첨부시 필요한 필수 코드
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'public/upload')
+      },
+      filename: function (req, file, cb) {
+        cb(null, file.originalname = Buffer.from(file.originalname, 'latin1').toString('utf8'))
+      }
+})
+const upload = multer({ storage: storage })
+
+// 상품 리스트 페이지로 접근시 보여줄 화면
+app.get("/admin/prdlist",(req,res) => {
+    db.collection("prdlist").find({}).toArray((err,result) => {
+        res.render("admin_product_list",{prdData:result, userData:req.user})
+    });
+});
+
+// 상품을 새롭게 추가하면 db에 데이터가 추가되는 것
+app.post("/add/prdlist",upload.single('thumbnail'),(req,res) => {
+    if (req.file) {
+        fileInfo = req.file.originalname;
+    }
+    else {
+        fileInfo = null;
+    }
+    db.collection("count").findOne({name:"상품등록"},(err,result1) => {
+        db.collection("prdlist").insertOne ({
+            num:result1.prdCount + 1,
+            name:req.body.name,
+            thumbnail:fileInfo,
+            category:req.body.category
+        },(err,result) => {
+            db.collection("count").updateOne({name:"상품등록"},{$inc:{prdCount:1}},(err,result) => {
+                res.redirect("/admin/prdlist")
+                console.log(req.body.category)
+            });
+        });
+    });
+});
+
+// 상품을 정보 수정하기
 // 1. 기존의컬렉션의 데이터값을 가져와서 데이터를 수정할 페이지.ejs에 넣어준다.  
 // 2. 데이터를 수정할 페이지.ejs에서 가져온 기존의 값을 컬렉션에.update({변경될 값의 페이지 넘버 찾기},{$set:{변경될 값}},function(req,res){})해서 수정해준다.
 // 3. 수정해준 값이 화면에 보여지는지 확인한다.
-// ex. 
-// app.post("/update",function(req,res){
-//     // 해당 게시글 번호에 맞는 게시글 수정 처리
-//     db.collection("ex10_board").updateOne({brdid:Number(req.body.no)},{$set:{
-//         brdtitle:req.body.title,
-//         brdcontext:req.body.context
-//     }},function(req,res){
-//     // 해당 게시글 상세 화면 페이지로 이동
-//     res.redirect("/detail/" + req.body.no);
+app.post("/prdUpdate",function(req,res){
+    res.send("테스트중")
+    console.log(req.body.hiddenNo)
+    // if (req.file) {
+    //     fileInfo = req.file.originalname;
+    // }
+    // else {
+    //     fileInfo = null;
+    // }
+    // // 해당 게시글 번호에 맞는 게시글 수정 처리
+    // // req.body.~~ 경로의 정보를 받아오지 못하는 문제가 있음
+    // db.collection("prdlist").updateOne({num:Number(req.body.hiddenNo)},{$set:{
+    //     name:req.body.nameUp,
+    //     thumbnail:fileInfo,
+    //     category:req.body.categoryUp
+    // }},function(err,result){
+    //     // 상품 상세페이지로 다시 이동
+    //     console.log(Number(req.body.hiddenNo));
+    //     res.redirect("/admin/prdlist");
+    // });
+});
+
+// 상품정보 삭제 요청
+app.get ("/prdDelete/:no",function(req,res){
+    db.collection("prdlist").deleteOne({num:Number(req.params.no)},function(err,result){
+        res.redirect("/admin/prdlist");
+    })
+});
+
+// // 댓글 수정 요청
+// app.post("/updatecomment",function(req,res){
+//     db.collection("ex12_comment").findOne({comNo:Number(req.body.comNo)},function(err,result1){
+//         db.collection("ex12_comment").updateOne({comNo:Number(req.body.comNo)},{$set:{
+//             comContext:req.body.comContext
+//         }},function(err,result2){
+//             res.redirect("/brddetail/" + result1.comPrd);
+//         });
 //     });
 // });
 
-// 게시글 삭제하기
-// 1. 상세페이지에서 삭제버튼을 누르면 /delete/숫자 경로로 요청하기
-// ex. href="/delete/<%- brdinfo.brdid %>"
-// 2. server.js에서 get 방식으로 delete를 넘겨받아서
-// 3. db의 컬렉션에서 경로 뒤의 숫자와 동일한 게시판 넘버를 가진 게시판 글을 찾는다.
-// 4. deleteOne을 이용해 삭제해주고 모든 작업이 끝나면 redirect를 이용해 다른 경로로 이동시켜준다
-// app.get ("/delete/:no",function(req,res){
-//     db.collection("ex10_board").deleteOne({brdid:Number(req.params.no)},function(err,result){
-//         res.redirect("/brdlist")
-//     })
-// });
+// 사용자가 보는 메뉴 페이지
+app.get("/menu/doughnut",(req,res) => {
+    db.collection("prdlist").find({category:"도넛"}).toArray((err,result) => {
+        res.render("menu_list",{prdData:result});
+    });
+});
+app.get("/menu/jam",(req,res) => {
+    db.collection("prdlist").find({category:"잼"}).toArray((err,result) => {
+        res.render("menu_list",{prdData:result});
+    });
+});
+app.get("/menu/coffee",(req,res) => {
+    db.collection("prdlist").find({category:"커피"}).toArray((err,result) => {
+        res.render("menu_list",{prdData:result});
+    });
+});
+app.get("/menu/latte",(req,res) => {
+    db.collection("prdlist").find({category:"라떼"}).toArray((err,result) => {
+        res.render("menu_list",{prdData:result});
+    });
+});
+app.get("/menu/tea",(req,res) => {
+    db.collection("prdlist").find({category:"티"}).toArray((err,result) => {
+        res.render("menu_list",{prdData:result});
+    });
+});
+app.get("/menu/ade",(req,res) => {
+    db.collection("prdlist").find({category:"에이드"}).toArray((err,result) => {
+        res.render("menu_list",{prdData:result});
+    });
+});
+
+// 회사소개 페이지
+app.get("/about",(req,res) => {
+    res.render("about_company");
+});
+
+// 창업소개 페이지
+app.get("/franchise",(req,res) => {
+    res.render("franchise");
+});
+
 
 // 검색기능 추가하기
 // 1. db에서 search를 만들어주고 server.js에 다음의 코드를 기입해준다.
@@ -163,75 +295,7 @@ app.get("/",(req,res) => {
 // });
 
 
-// // 로그인 기능 수행 작업
-// // 로그인 화면으로 요청
-// app.get("/login",function(req,res){
-//     res.render("login");
-// });
 
-// // 로그인 페이지에서 입력한 아이디, 비밀번호 검증처리 요청
-// // app.post("/경로",여기 사이에 ↓ 입력,function(req,res){});
-// // passport.authenticate('local', {failureRedirect : '/fail'})
-// app.post("/loginresult",passport.authenticate('local', {failureRedirect : '/fail'}),function(req,res){
-//     //                                                   ↑ 실패시 위의 경로로 요청
-//     // ↓ 로그인 성공시 메인페이지로 이동
-//     res.redirect("/")
-// });
-
-// /loginresult 경로 요청시 passport.autenticate() 함수 구간이 아이디, 비밀번호 로그인 검증 구간
-// passport.use(new LocalStrategy({
-//     usernameField: 'id',    // login.ejs에서 입력한 아이디의 name값
-//     passwordField: 'pw',    // login.ejs에서 입력한 비밀번호의 name값
-//     session: true,      // 세션을 이용할것인지에 대한 여부
-//     passReqToCallback: false,   // 아이디와 비밀번호 말고도 다른 항목들을 더 검사할것인가에 대한 여부
-//   }, function (입력한아이디작명, 입력한비번작명, done) {
-//     //console.log(입력한아이디, 입력한비번);
-//     db.collection('아이디, 비밀번호가 들어있는 컬렉션 이름').findOne({ 컬렉션에서 아이디가 들어있는 데이터 이름: 위에서작명한입력한아이디 }, function (에러, 결과) {
-//       if (에러) return done(에러)
-// // 아래의 message는 필요에 따라 뻴수도 있다. 
-//       if (!결과) return done(null, false, { message: '존재하지않는 아이디요' })
-//       if (위에서작명한입력한비번 == 결과.컬렉션에서 비밀번호가 들어있는 데이터 이름) {
-//         return done(null, 결과)
-//       } else {
-//         return done(null, false, { message: '비번틀렸어요' })
-//       }
-//     })
-// }));
-
-// // 최초의 로그인시 한번 실행
-// // serializeUser    →   처음 로그인 했을 시 해당 사용자의 아이디를 기반으로 세션을 생성함
-// // ↓ 여기서 생성된 매게변수 user로 req.user~~를 쓸 수 있다.
-// passport.serializeUser(function (user, done) {
-//      // ↓ 서버에는 세션을 만들고 / 사용자 웹 브라우저에는 쿠키를 만들어준다. 
-//     done(null, user.컬렉션에서 아이디가 들어있는 데이터 이름)
-// });
-
-// // 로그인 할 때마다 실행
-// // deserializeUser  →   로그인을 한 후 다른 페이지들을 접근할 시 생성된 세션에 담겨있는 회원정보 데이터를 보내주는 처리
-// passport.deserializeUser(function (입력한아이디작명, done) {
-//     db.collection("아이디, 비밀번호가 들어있는 컬렉션 이름").findOne({컬렉션에서 아이디가 들어있는 데이터 이름:위에서 입력한아이디작명},function(err,result){
-//         done(null,result)
-//     });
-// });
-
-// // 로그아웃 기능 작업
-// app.get("/logout",function(req,res){
-//     // 서버의 세션을 삭제하고, 본인 웹브라우저의 쿠키를 삭제한다.
-//     req.session.destroy(function(err,result){
-//         // 지워줄 쿠키를 선택한다. / 콘솔 로그의 application → cookies에 가면 name에서 확인할 수 있다.
-//         res.clearCookie("어떤 쿠키를 지워줄 것인가 선택")
-//         // 로그아웃 후 다시 메인페이지로 돌아가기
-//         res.redirect("/");
-//     });
-// });
-
-// 로그인 했는지 않했는지 확인하는 작업
-// app.get("/list",function(req,res){
-// /list 경로를 입력하면 ↓ 아래의 ejs가 출력되고, 동시에 userData에 로그인 정보를 담아서 보내준다.
-// passport.serializeUser(function (user, done){}에서 써준 코드인 user를 써서 그 안에 담긴 데이터를 가져온다.
-// 즉, req.user는 로그인 했을 때 담긴 아이디, 비밀번호, 메일주소, 전화번호의 데이터를 말한다.
-//     res.render("brd_list",{userData:req.user});
-// })
 
 // 댓글 관련 기능 코드
 // //게시글 상세화면 get 요청  /:변수명  작명가능
@@ -273,16 +337,6 @@ app.get("/",(req,res) => {
 //     });
 // });
 
-// // 댓글 수정 요청
-// app.post("/updatecomment",function(req,res){
-//     db.collection("ex12_comment").findOne({comNo:Number(req.body.comNo)},function(err,result1){
-//         db.collection("ex12_comment").updateOne({comNo:Number(req.body.comNo)},{$set:{
-//             comContext:req.body.comContext
-//         }},function(err,result2){
-//             res.redirect("/brddetail/" + result1.comPrd);
-//         });
-//     });
-// });
 
 // // 댓글 삭제 요청
 // app.get("/deletecomment/:no",function(req,res){
@@ -296,29 +350,6 @@ app.get("/",(req,res) => {
 //     });
 // });
 
-// ejs에는 다음과 같이 입력 해준다.
-// <!-- 댓글 출력 구간 -->
-// <% for(let i = 0; i < commentData.length; i++){ %>
-// <div class="comment_box">
-//     <div class="comment_context"><%- commentData[i].comContext %></div>
-//     <div class="comment_date"><%- commentData[i].comAuther %></div>
-//     <div class="comment_auther"><%- commentData[i].comDate %></div>
-//     <!-- 조건문으로  -->
-//     <% if(userData.joinnick === commentData[i].comAuther) { %>
-//         <div class="comment_btn">
-//             <a class="update_comment" href="#">댓글 수정</a>
-//             <a class="del_comment" href="/deletecomment/<%- commentData[i].comNo %>">댓글 삭제</a>
-//         </div>
-//         <form class="comupdate_form" action="/updatecomment" method="post">
-//             <!-- 내가 수정할 댓글의 순번값을 받아오기 위한 type="hidden"의 input 태그 -->
-//             <input type="hidden" name="comNo" value="<%- commentData[i].comNo %>">
-//             <textarea name="comContext" class="comContext"><%- commentData[i].comContext %></textarea>    
-//             <button class="comment_ok" type="submit">작성 완료</button>
-//             <button class="comment_no" type="button">작성 취소</button>
-//         </form>
-//     <% } %>
-// </div>
-// <% } %>
 
 // 파일 업로드 하는 방법
 // 1. db의 collection에 업로드한 파일명을 저장할 컬렉션을 하나 만들어준다.
@@ -329,15 +360,7 @@ app.get("/",(req,res) => {
 // 3. server.js에서 get 요청으로 특정 경로에 들어가면 파일 업로드 기능이 담긴 ejs파일을 열어주도록 한다.
 
 // 4. 다음의 코드를 server.js에서 입력해준다
-// const storage = multer.diskStorage({
-//     destination: function (req, file, cb) {
-//         cb(null, 업로드 파일이 저장될 저장경로/업로드 파일이 저장될 저장경로')
-//       },
-//       filename: function (req, file, cb) {
-//         cb(null, file.originalname = Buffer.from(file.originalname, 'latin1').toString('utf8'))
-//       }
-// })
-// const upload = multer({ storage: storage })
+
   
 // 5. post 요청으로 db의 컬렉션 안에 업로드 파일의 정보를 insertOne 해준다.
 // “/경로”와 function 사이에 꼭 upload.single('fileUpload')를 넣어줘야 한다!!

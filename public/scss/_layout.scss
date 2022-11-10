@@ -39,7 +39,7 @@ header {
                 }
                 &:hover {
                     .sub_gnb {
-                        height:130px;
+                        height:150px;
                     }    
                 }
                 .sub_gnb {
@@ -124,6 +124,56 @@ footer {
                 0% {transform:translateX(0)}
                 100% {transform: translateX(-100%)}
             }
+        }
+    }
+}
+
+// 메뉴 작업 시작 / menu_list
+#menu_wrap {
+    display:flex; justify-content:center;
+    .center {
+        width:80%;
+        .type_btns {
+            display:flex; justify-content:space-between;
+            width:50%; margin:0 auto;
+            li {width:15%;}
+        }
+        .menu_list {
+            display:flex; flex-wrap:wrap;
+            .menu_box {
+                .img_box {
+                    width:130px;
+                    img {
+                        width:100%;
+                    }
+                }
+                .text_box {
+                    width:130px;
+                    p {
+                        width:100%;
+                    }
+                }
+            }
+        }
+    }
+}
+
+// 관리자 페이지 작업 시작
+#admin_login {
+    display:flex; justify-content:center;
+    .center {
+        width:80%; height:100vh;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        form {
+            display:flex;
+            flex-direction:column;
+            .line {
+                label {}
+                input {border:1px solid #ddd;}
+            }
+            button {}
         }
     }
 }
