@@ -136,14 +136,6 @@ app.get("/logout",function(req,res){
     });
 });
 
-// 로그인 했는지 않했는지 확인하는 작업
-// app.get("/list",function(req,res){
-// /list 경로를 입력하면 ↓ 아래의 ejs가 출력되고, 동시에 userData에 로그인 정보를 담아서 보내준다.
-// passport.serializeUser(function (user, done){}에서 써준 코드인 user를 써서 그 안에 담긴 데이터를 가져온다.
-// 즉, req.user는 로그인 했을 때 담긴 아이디, 비밀번호, 메일주소, 전화번호의 데이터를 말한다.
-//     res.render("brd_list",{userData:req.user});
-// })
-
 
 // 파일 첨부시 필요한 필수 코드
 const storage = multer.diskStorage({
@@ -156,7 +148,7 @@ const storage = multer.diskStorage({
 })
 const upload = multer({ storage: storage })
 
-// 상품 리스트 페이지로 접근시 보여줄 화면
+// 관리자 상품 추가 페이지
 app.get("/admin/prdlist",(req,res) => {
     db.collection("prdlist").find({}).toArray((err,result) => {
         res.render("admin_product_list",{prdData:result, userData:req.user})
@@ -180,36 +172,33 @@ app.post("/add/prdlist",upload.single('thumbnail'),(req,res) => {
         },(err,result) => {
             db.collection("count").updateOne({name:"상품등록"},{$inc:{prdCount:1}},(err,result) => {
                 res.redirect("/admin/prdlist")
-                console.log(req.body.category)
+                console.log(req.body)
             });
         });
     });
 });
 
-// 상품을 정보 수정하기
+// 상품 정보 수정하기
 // 1. 기존의컬렉션의 데이터값을 가져와서 데이터를 수정할 페이지.ejs에 넣어준다.  
 // 2. 데이터를 수정할 페이지.ejs에서 가져온 기존의 값을 컬렉션에.update({변경될 값의 페이지 넘버 찾기},{$set:{변경될 값}},function(req,res){})해서 수정해준다.
 // 3. 수정해준 값이 화면에 보여지는지 확인한다.
-app.post("/prdUpdate",function(req,res){
-    res.send("테스트중")
-    console.log(req.body.hiddenNo)
-    // if (req.file) {
-    //     fileInfo = req.file.originalname;
-    // }
-    // else {
-    //     fileInfo = null;
-    // }
-    // // 해당 게시글 번호에 맞는 게시글 수정 처리
-    // // req.body.~~ 경로의 정보를 받아오지 못하는 문제가 있음
-    // db.collection("prdlist").updateOne({num:Number(req.body.hiddenNo)},{$set:{
-    //     name:req.body.nameUp,
-    //     thumbnail:fileInfo,
-    //     category:req.body.categoryUp
-    // }},function(err,result){
-    //     // 상품 상세페이지로 다시 이동
-    //     console.log(Number(req.body.hiddenNo));
-    //     res.redirect("/admin/prdlist");
-    // });
+app.post("/prdUpdate",upload.single('thumbnailUp'),function(req,res){
+    if (req.file) {
+        fileInfo = req.file.originalname;
+    }
+    else {
+        fileInfo = null;
+    }
+    // 해당 게시글 번호에 맞는 게시글 수정 처리
+    // req.body.~~ 경로의 정보를 받아오지 못하는 문제가 있음 / 해결, 수정시에도 파일 업로드 기능을 사용하기 위해 ,upload.single('thumbnailUp'), 코드를 쓰는것으로 해결
+    db.collection("prdlist").updateOne({num:Number(req.body.hiddenNo)},{$set:{
+        name:req.body.nameUp,
+        thumbnail:fileInfo,
+        category:req.body.categoryUp
+    }},function(err,result){
+        // 상품 상세페이지로 다시 이동
+        res.redirect("/admin/prdlist");
+    });
 });
 
 // 상품정보 삭제 요청
@@ -219,16 +208,16 @@ app.get ("/prdDelete/:no",function(req,res){
     })
 });
 
-// // 댓글 수정 요청
-// app.post("/updatecomment",function(req,res){
-//     db.collection("ex12_comment").findOne({comNo:Number(req.body.comNo)},function(err,result1){
-//         db.collection("ex12_comment").updateOne({comNo:Number(req.body.comNo)},{$set:{
-//             comContext:req.body.comContext
-//         }},function(err,result2){
-//             res.redirect("/brddetail/" + result1.comPrd);
-//         });
-//     });
-// });
+// 관리자 매장 등록 페이지
+app.get("/admin/storeList",(req,res) => {
+    db.collection("prdlist").find({}).toArray((err,result) => {
+        res.render("admin_store_list",{storeData:result, userData:req.user})
+    });
+});
+
+
+
+
 
 // 사용자가 보는 메뉴 페이지
 app.get("/menu/doughnut",(req,res) => {
