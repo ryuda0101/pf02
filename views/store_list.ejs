@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>매장 리스트</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- 아이콘 관련 링크 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+</head>
+<body>
+    <%- include("common/header.ejs") %>
+    <div id="store_wrap">
+        <div class="center">
+                <!-- 사용자가 등록된 매장 검색하는 구간 -->
+            <form action="/search/local" method="get">
+                <div class="search_select">
+                    <p>지역으로 검색</p>
+                    <!-- 시/도 선택 -->
+                    <select class="city1 sido" name="sido">
+                        <option value>시/도 선택</option>
+                    </select>
+                    <!-- 구/군 선택 -->
+                    <select class="city2 gugun" name="gugun">
+                        <option value>구/군 선택</option>
+                    </select>
+                    <button type="submit">검색</button>
+                </div>
+            </form>
+
+            <form action="/search/storename" method="get">
+                <div class="search_input">
+                    <p>매장명으로 검색</p>
+                    <input type="text" name="name">
+                    <button type="submit">검색</button>
+                </div>
+            </form>
+            
+            <div class="store_list">
+                <!-- 매장 검색시 검색결과가 없는 경우 -->
+                <% if(storeData.length === 0){ %>
+                    <div>해당하는 매장이 없습니다.</div>
+                <% } else { %>
+                    <% for(let i = 0; i < storeData.length; i++){ %>
+                        <div class="store_box">
+                            <p><%- storeData[i].num %></p>
+                            <h3><%- storeData[i].name %></h3>
+                            <p><%- storeData[i].sido %> <%- storeData[i].sigugun %></p>
+                            <p><%- storeData[i].address %></p>
+                            <p><%- storeData[i].phone %></p>
+                        </div>
+                    <% } %>
+                <% } %>
+            </div>
+        </div>
+    </div>
+    <%- include("common/footer.ejs") %>
+    <script src="/js/hangjungdong.js"></script>
+    <script src="/js/storeselect.js"></script>
+</body>
+</html>

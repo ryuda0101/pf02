@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>관리자 게시글 수정페이지</title>
+</head>
+<body>
+    <div id="board_edit_wrap">
+        <div class="center">
+            <% for(let i = 0; i < brdData.length; i++){ %>
+            <form action="/update/board" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="num" value="<%- brdData[i].num %>">
+                <label for="title">제목</label>
+                <input type="text" name="title" id="title" value="<%- brdData[i].title %>">
+                <label for="date">날짜</label>
+                <input type="text" name="date" value="<%- brdData[i].date %>">
+                <label for="classification">분류</label>
+                <select name="classification" id="classification">
+                    <option value="<%- brdData[i].classification %>"><%- brdData[i].classification %></option>
+                    <option value="news">공지사항</option>
+                    <option value="event">이벤트</option>
+                </select>
+                <label for="file">파일 첨부</label>
+                <input type="hidden" name="originFile" value="<%- brdData[i].file %>">
+                <input type="file" name="file" id="file">
+                <label for="context">내용</label>
+                <textarea name="context" id="context"> <%- brdData[i].context %></textarea>
+                <button type="submit">작성</button>
+            </form>
+            <% } %>
+        </div>
+    </div>
+</body>
+</html>

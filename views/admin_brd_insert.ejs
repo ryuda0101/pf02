@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>관리자 게시글 작성</title>
+</head>
+<body>
+    <div id="board_insert_wrap">
+        <div class="center">
+            <form action="/add/board" method="post" enctype="multipart/form-data">
+                <label for="title">제목</label>
+                <input type="text" name="title" id="title">
+                <label for="date">날짜</label>
+                <input type="text" name="date">
+                <label for="classification">분류</label>
+                <select name="classification" id="classification">
+                    <option value>분류</option>
+                    <option value="news">공지사항</option>
+                    <option value="event">이벤트</option>
+                </select>
+                <label for="file">파일 첨부</label>
+                <input type="file" name="file" id="file">
+                <label for="context">내용</label>
+                <textarea name="context" id="context"></textarea>
+                <button type="submit">작성</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>관리자 게시글 상세페이지</title>
+</head>
+<body>
+    <div id="board_detail_wrap">
+        <div class="center">
+            <% for(let i = 0; i < brdData.length; i++){ %>
+            <table class="brd_detail">
+                <!-- db에서 데이터 받아와서 여기에 넣어주기 -->
+                <tr class="brd_line top_line">
+                    <th class="title left_th">제목</th>
+                    <th class="title right_th"><%- brdData[i].title %></th>
+                </tr>
+                <tr class="brd_line">
+                    <th class="date left_th">날짜</th>
+                    <th class="date right_th"><%- brdData[i].date %></th>
+                </tr>
+                <tr class="brd_line">
+                    <th class="classification">분류</th>
+                    <th class="classification"><%- brdData[i].classification %></th>
+                </tr>
+            </table> 
+            <div class="brd_context">
+                <%- brdData[i].context %>
+            </div>           
+            <div class="brd_img_box">
+                <img src="/upload/<%- brdData[i].file %>">
+            </div>      
+            <!-- 수정, 삭제, 목록 버튼들 -->
+            <div class="detail_btns">
+                <a class="listBtn" href="/admin/board">목록보기</a>
+                <a href="/edit/<%- brdData[i].num %>">수정</a>
+                <a href="/delete/<%- brdData[i].num %>" class="deleteBtn">삭제</a>
+            </div>
+            <% } %> 
+        </div>
+    </div>
+</body>
+</html>

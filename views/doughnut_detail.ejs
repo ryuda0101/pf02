@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>도넛 상세 페이지</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- 아이콘 관련 링크 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+</head>
+<body>
+    <%- include("common/header.ejs") %>
+    <div id="detail_wrap">
+        <div class="center">
+            <% for(let i = 0; i < prdData.length; i++){ %>
+                <div class="img_box">
+                    <img src="/upload/<%- prdData[i].thumbnail %>">
+                </div>
+                <div class="text_box">
+                    <h3><%- prdData[i].name %></h3>
+                    <p><%- prdData[i].taste %></p>
+                    <p>가격: <%- prdData[i].price %>￦</p>
+                    <p>영양 정보: <%- prdData[i].calorie %></p>
+                    <p>알레르기 정보: <%- prdData[i].allergy %></p>
+                </div>
+            <% } %>
+        </div>
+    </div>
+    <%- include("common/footer.ejs") %>
+</body>
+</html>

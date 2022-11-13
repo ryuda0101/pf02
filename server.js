@@ -168,7 +168,12 @@ app.post("/add/prdlist",upload.single('thumbnail'),(req,res) => {
             num:result1.prdCount + 1,
             name:req.body.name,
             thumbnail:fileInfo,
-            category:req.body.category
+            category:req.body.category,
+            taste:req.body.taste,
+            price:req.body.price,
+            calorie:req.body.calorie,
+            nutrition:req.body.nutrition,
+            allergy:req.body.allergy
         },(err,result) => {
             db.collection("count").updateOne({name:"상품등록"},{$inc:{prdCount:1}},(err,result) => {
                 res.redirect("/admin/prdlist")
@@ -194,7 +199,12 @@ app.post("/prdUpdate",upload.single('thumbnailUp'),function(req,res){
     db.collection("prdlist").updateOne({num:Number(req.body.hiddenNo)},{$set:{
         name:req.body.nameUp,
         thumbnail:fileInfo,
-        category:req.body.categoryUp
+        category:req.body.categoryUp,
+        taste:req.body.tasteUp,
+        price:req.body.priceUp,
+        calorie:req.body.calorieUp,
+        nutrition:req.body.nutritionUp,
+        allergy:req.body.allergyUp
     }},function(err,result){
         // 상품 상세페이지로 다시 이동
         res.redirect("/admin/prdlist");
@@ -210,10 +220,121 @@ app.get ("/prdDelete/:no",function(req,res){
 
 // 관리자 매장 등록 페이지
 app.get("/admin/storeList",(req,res) => {
-    db.collection("prdlist").find({}).toArray((err,result) => {
+    db.collection("storelist").find({}).toArray((err,result) => {
         res.render("admin_store_list",{storeData:result, userData:req.user})
     });
 });
+
+// 매장 등록 페이지에서 전송한 값 db에 넣어주기
+app.post("/add/storelist",(req,res) => {
+    db.collection("count").findOne({name:"매장등록"},(err,result1) => {
+        db.collection("storelist").insertOne ({
+            num:result1.storeCount + 1,
+            name:req.body.name,
+            sido:req.body.sido,
+            sigugun:req.body.gugun,
+            address:req.body.detail,
+            phone:req.body.phone
+        },(err,result) => {
+            db.collection("count").updateOne({name:"매장등록"},{$inc:{storeCount:1}},(err,result) => {
+                res.redirect("/admin/storelist")
+            });
+        });
+    });
+});
+
+// 매장정보 수정
+app.post("/storeUpdate",(req,res) => {
+    // 해당 게시글 번호에 맞는 게시글 수정 처리
+    // req.body.~~ 경로의 정보를 받아오지 못하는 문제가 있음 / 해결, 수정시에도 파일 업로드 기능을 사용하기 위해 ,upload.single('thumbnailUp'), 코드를 쓰는것으로 해결
+    db.collection("storelist").updateOne({num:Number(req.body.hiddenNo)},{$set:{
+        name:req.body.name,
+        sido:req.body.sido,
+        sigugun:req.body.gugun,
+        address:req.body.detail,
+        phone:req.body.phone
+    }},function(err,result){
+        // 상품 상세페이지로 다시 이동
+        res.redirect("/admin/storelist");
+    });
+});
+
+// 매장정보 삭제 요청
+app.get ("/storeDelete/:no",function(req,res){
+    db.collection("storelist").deleteOne({num:Number(req.params.no)},function(err,result){
+        res.redirect("/admin/storelist");
+    })
+});
+
+// 관리자 게시판 페이지
+app.get("/admin/board",(req,res) => {
+    db.collection("board").find({}).toArray((err,result) => {
+        res.render("admin_brd_list",{brdData:result});
+    });
+});
+
+// 관리자 게시글 작성 페이지
+app.get("/admin/board_insert",(req,res) => {
+    res.render("admin_brd_insert");
+});
+
+app.post("/add/board",upload.single('file'),(req,res) => {
+    if (req.file) {
+        fileInfo = req.file.originalname;
+    }
+    else {
+        fileInfo = null;
+    }
+    db.collection("count").findOne({name:"게시글"},(err,result) => {
+        db.collection("board").insertOne ({
+            num:result.brdCount + 1,
+            title:req.body.title,
+            date:req.body.date,
+            classification:req.body.classification,
+            file:fileInfo,
+            context:req.body.context
+        },(err,result) => {
+            db.collection("count").updateOne({name:"게시글"},{$inc:{brdCount:1}},(err,result) => {
+                res.redirect("/admin/board")
+            });
+        });
+    });
+});
+
+// 관리자 게시글 상세 페이지
+app.get("/detail/:no",(req,res) => {
+    db.collection("board").find({num:Number(req.params.no)}).toArray((err,result) => {
+        res.render("admin_brd_detail",{brdData:result});
+    });
+});
+
+// 관리자 게시글 수정 페이지
+app.get("/edit/:no",(req,res) => {
+    db.collection("board").find({num:Number(req.params.no)}).toArray((err,result) => {
+        res.render("admin_brd_edit",{brdData:result});
+    });
+});
+
+app.post("/update/board",upload.single('thumbnailUp'),(req,res) => {
+    if (req.file) {
+        fileInfo = req.file.originalname;
+    }
+    else {
+        fileInfo = req.body.originFile;
+    }
+    db.collection("board").updateOne({num:Number(req.body.num)},{$set:{
+        title:req.body.title,
+        date:req.body.date,
+        classification:req.body.classification,
+        file:fileInfo,
+        context:req.body.context
+    }},(err,result) => {
+        res.redirect("/admin/board");
+    });
+});
+
+// 수정시 파일첨부기능 오류나는 문제 있음
+// 게시글 delete 기능 넣어야함
 
 
 
@@ -251,6 +372,13 @@ app.get("/menu/ade",(req,res) => {
     });
 });
 
+// 도넛 상세 페이지
+app.get("/doughnut/:no",(req,res) => {
+    db.collection("prdlist").find({num:Number(req.params.no)}).toArray((err,result) => {
+        res.render("doughnut_detail",{prdData:result});
+    });
+});
+
 // 회사소개 페이지
 app.get("/about",(req,res) => {
     res.render("about_company");
@@ -261,83 +389,58 @@ app.get("/franchise",(req,res) => {
     res.render("franchise");
 });
 
+// 사용자가 보는 매장 페이지
+app.get("/storelist",(req,res) => {
+    db.collection("storelist").find({}).toArray((err,result) => {
+        res.render("store_list",{storeData:result});
+    });
+});
 
-// 검색기능 추가하기
-// 1. db에서 search를 만들어주고 server.js에 다음의 코드를 기입해준다.
-// app.get("/search",function(req,res){
-//     let search = [
-//                     {
-//                         '$search': {
-//                             'index': '검색할 컬렉션 이름',
-//                             'text': {
-//                                 query: req.query.검색메뉴가 있는 ejs파일에서 검색어가 들어갈 input 태그의 name값,
-//                                 path: req.query.검색메뉴가 있는 ejs파일에서 검색어의 종류를 선택할 select태그의 name값
-//                             }
-//                         }
-//                     },{
-//                         $sort:{brdid:-1}
-//                     }
-//                 ]
-//     db.collection("검색할 컬렉션 이름").aggregate(search(바로 위에서 작성한 변수의 이름)).toArray(function(err,result){
-//         res.render("brd_list",{brdinfo:result,userData:req.user});
-//     });
-// });
+// input 태그로 검색시
+app.get("/search/storename",(req,res) => {
+    let storeSearch = [
+        {
+          $search: {
+            index: 'store_search',
+            text: {
+              query: req.query.name,
+              path: "name"
+            }
+          }
+        }
+      ]
+      if (req.query.name !== "") {
+        db.collection("storelist").aggregate(storeSearch).toArray((err,result) => {
+            res.render("store_list",{storeData:result});
+        });
+      }
+      else {
+        res.redirect("/storelist");
+      }
+});
 
+// select 태그로 검색시
+// 매장 지역검색 경과화면 페이지
+app.get("/search/local",(req,res) => {
+    // 시/도 선택시
+    // form태그에서 post로 썼을 때 →  req.body.name   /   form태그에서 get으로 썼을 때 →  req.query.name
+    if(req.query.sido !== "" && req.query.gugun === ""){
+      db.collection("storelist").find({sido:req.query.sido}).toArray((err,result) => {
+        res.render("store_list",{storeData:result});
+      });
+    }
+    // 시/도 구/군 선택시
+    else if (req.query.sido !== "" && req.query.gugun !== ""){
+      db.collection("storelist").find({sido:req.query.sido, sigugun:req.query.gugun}).toArray((err,result) => {
+        res.render("store_list",{storeData:result});
+      });
+    }
+    // 아무것도 선택하지 않았을때
+    else {
+      res.redirect("/storelist");
+    }
+  });
 
-
-
-// 댓글 관련 기능 코드
-// //게시글 상세화면 get 요청  /:변수명  작명가능
-// //db안에 해당 게시글번호에 맞는 데이터만 꺼내오고 ejs파일로 응답
-// app.get("/brddetail/:no",function(req,res){
-//     db.collection("ex12_board").findOne({brdid:Number(req.params.no)},function(err,result1){
-//         // 게시글 가져와서 → 해당 게시글 번호에 맞는 댓글들만 가져오기
-//         db.collection("ex12_comment").find({comPrd:result1.brdid}).toArray(function(err,result2){
-//             // 사용자에게 응답 / ejs 파일로 데이터 넘겨주기
-//             // 게시글에 관련된 데이터 / 로그인한 유저정보 / 댓글에 관련된 데이터
-//             res.render("brddetail",{brdData:result1, userData:req.user, commentData:result2})
-//         });
-        
-//         // res.render("brddetail",{brdData:result,userData:req.user});
-//     });
-// });
-
-// // 댓글 작성 후 db에 추가하는 post 요청
-// app.post("/addcomment",function(req,res){
-//     // 몇번 댓글인지 번호 부여하기 위한 작업
-//     db.collection("ex12_count").findOne({name:"댓글"},function(err,result1){
-//         // 해당 게시글의 번호값도 함께 부여해줘야 한다.
-//         db.collection("ex12_board").findOne({brdid:Number(req.body.prdid)},function(err,result2){
-//             // ex12_comment 에 댓글을 집어넣기
-//             db.collection("ex12_comment").insertOne({
-//                 comNo:result1.commentCount + 1,
-//                 comPrd:result2.brdid,
-//                 comContext:req.body.comment_text,
-//                 comAuther:req.user.joinnick,
-//                 comDate:moment().tz("Asia/Seoul").format("YYYY-MM-DD HH:mm:ss")
-//             },function(err,result){
-//                 db.collection("ex12_count").updateOne({name:"댓글"},{$inc:{commentCount:1}},function(err,result){
-//                     // 상세페이지에서 댓글 입력시 보내준 게시글 번호로 → 상세페이지 이동하도록 요청
-//                     // res.redirect("/brddetail/" + result2.brdid);
-//                     res.redirect("/brddetail/" + req.body.prdid);
-//                 })
-//             });
-//         });
-//     });
-// });
-
-
-// // 댓글 삭제 요청
-// app.get("/deletecomment/:no",function(req,res){
-//     // 해당 댓글의 게시글(부모) 번호값을 찾아온 후 댓글을 삭제하고
-//     db.collection("ex12_comment").findOne({comNo:Number(req.params.no)},function(err,result1){
-//         db.collection("ex12_comment").deleteOne({comNo:Number(req.params.no)},function(err,result2){
-//             // 그 다음 해당 상세페이지로 다시 이동 (게시글 번호 값)!
-//             // 댓 삭제 후 findOne으로 찾아온 comPrd ← 게시글(부모)의 번호
-//             res.redirect("/brddetail/" + result1.comPrd);
-//         });
-//     });
-// });
 
 
 // 파일 업로드 하는 방법

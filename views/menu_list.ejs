@@ -25,11 +25,10 @@
                 <% for(let i = 0; i < prdData.length; i++){ %>
                 <div class="menu_box">
                     <div class="img_box">
-                        <img src="/upload/<%- prdData[i].thumbnail %>">
+                        <a href="/doughnut/<%- prdData[i].num %>"><img src="/upload/<%- prdData[i].thumbnail %>"></a>
                     </div>
                     <div class="text_box">
-                        <p><%- prdData[i].name %></p>
-                        <p><%- prdData[i].category %></p>
+                        <a href="/doughnut/<%- prdData[i].num %>"><%- prdData[i].name %></a>
                     </div>
                 </div>
                 <% } %>

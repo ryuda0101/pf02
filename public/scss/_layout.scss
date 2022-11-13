@@ -10,6 +10,7 @@ header {
         .subGnb_bg {
             position:absolute; top:81px; left:0; width:100%; height:0;
             background-color:bisque; transition:all 0.5s;
+            z-index:98;
         }
         .gnb {
             width:100%;
@@ -47,6 +48,7 @@ header {
                     width:100%; padding-top:35px;
                     overflow:hidden; height:0;
                     transition:all 0.5s;
+                    z-index:99;
                     li {
                         a {
                             line-height:1.5;
@@ -128,37 +130,10 @@ footer {
     }
 }
 
-// 메뉴 작업 시작 / menu_list
-#menu_wrap {
-    display:flex; justify-content:center;
-    .center {
-        width:80%;
-        .type_btns {
-            display:flex; justify-content:space-between;
-            width:50%; margin:0 auto;
-            li {width:15%;}
-        }
-        .menu_list {
-            display:flex; flex-wrap:wrap;
-            .menu_box {
-                .img_box {
-                    width:130px;
-                    img {
-                        width:100%;
-                    }
-                }
-                .text_box {
-                    width:130px;
-                    p {
-                        width:100%;
-                    }
-                }
-            }
-        }
-    }
-}
-
 // 관리자 페이지 작업 시작
+// 수정화면 버튼 누르기 전까지 안보이게 처리
+.updateForm {display:none;}
+// 로그인 페이지
 #admin_login {
     display:flex; justify-content:center;
     .center {
@@ -174,6 +149,365 @@ footer {
                 input {border:1px solid #ddd;}
             }
             button {}
+        }
+    }
+}
+
+// 관리자 상품 관리 페이지
+#admin_prdlist {
+    display:flex; justify-content:center;
+    .center {
+        width:80%;
+        input, select {border:1px solid #000;}
+        .admin_menu {}
+        .add_prd {
+            display:flex; flex-direction:column;
+        }
+        .prdwrap {
+            .updateForm {
+                .flex_form {
+                    display:flex; flex-direction:column;
+                }
+            }
+        }
+    }
+}
+
+
+
+
+// 메인화면 작업 시작
+#container {
+    >div {
+        display:flex; justify-content:center;
+        margin:100px 0;
+        .center {
+            width:80%;
+            h2 {
+                font-size:60px; margin-bottom:80px;
+            }
+        }
+    }
+    .slider {
+        margin:0;
+        .center {
+            width:100%;
+            .view {
+                width:100%;
+                position:relative;
+                overflow-x:hidden;
+                // 스크립트에서 버튼 클릭시
+                .btns {
+                    .point_btns {
+                        img {width:30px; position:absolute; top:50%; transform:translateY(-50%);}
+                        .left {left:20px;}
+                        .right {right:20px;}
+                    }
+                    .circle_btns {
+                        position:absolute; bottom:20px; left:50%; transform:translateX(-50%);
+                        span {
+                            display:inline-block; margin:0 10px;
+                            width:20px; height:20px; background-color:cornflowerblue; border-radius:50%;
+                        }
+                    }
+                }
+                .wide {
+                    display:flex; width:300%;
+                    // 스크립트에서 left값 줘야할 태그
+                    >div {
+                        width:33.333333%; height:50vh;
+                    }
+                    .slide01 {background-color:red;}
+                    .slide02 {background-color:blue;}
+                    .slide03 {background-color:green;}
+                }
+            }
+        }
+    }
+    .new_product {
+        .center {
+            .new_prd_list {
+                display:flex; justify-content:space-between;
+                position:relative;
+                .left_box {
+                    width:50%; background-color:bisque;
+                    li {
+                        margin-bottom:50px;
+                        a {
+                            position:relative; line-height:1.5;
+                            &::after {
+                                content:""; display:block; position:absolute;
+                                width:100%; height:2px; background-color:red;
+                            }
+                        }
+                    }
+                }
+                .right_box {
+                    width:50%; background-color:lightcoral;
+                    >div {
+                        display:none;
+                        text-align:right;
+                        h3 {margin-bottom:30px;}
+                        p {line-height:3;}
+                    }
+                    >div.show {
+                        display:block;
+                    }
+                }
+                .mid_box {
+                    position:absolute; top:50%; left:50%; transform:translate(-50%, -50%);
+                    >div {
+                        display:none;
+                    }
+                    >div.show {display:block;}
+                }
+            }
+        }
+    }
+    .bake_count {
+        .center {
+            .count_list {
+                display:flex; justify-content:space-between;
+                .count {
+                    width:49%; display:flex; justify-content:space-around; flex-direction:column;
+                    h3 {
+                        font-size:30px;
+                    }
+                    .today_count {
+                        span {
+                            font-size:45px;
+                        }
+                    }
+                    p {
+                        line-height:1.5;
+                    }
+                }
+                .right {
+                    width:49%;
+                    img {
+                        width:100%;
+                    }
+                }
+            }
+        }
+    }
+    .news {
+        .center {
+            .news_boxs {
+                width:100%; display:flex; justify-content:space-between;
+                .left_img {
+                    width:49%;
+                    img {
+                        width:100%;
+                    }
+                }
+                .view {
+                    margin:auto 0;
+                    width:49%; position:relative;
+                    display:flex; flex-direction:column;
+                    height:526px; overflow:hidden;
+                    .btns {
+                        img {
+                            position:absolute; left:50%; transform:translateX(-50%);
+                            width:50px;
+                        }
+                        .up {
+                            top:0;
+                        }
+                        .down {
+                            bottom:0;
+                        }
+                    }
+                    .boxs {
+                        .box {
+                            padding:50px 0 50px 30px;
+                            border-top:1px solid #000;
+                            position:relative;
+                            h4 {
+                                margin:15px 0;
+                                font-size:20px;
+                                font-weight:300;
+                            }
+                            p {
+                                font-size:12px;
+                            }
+                            img {
+                                position:absolute;
+                                right:0; top:50%; transform:translateY(-50%);
+                                width:20px;
+                            }
+                        }
+                        .last_box {
+                            border-bottom:1px solid #000;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .location {
+        .center {
+            .map {
+                height:500px; background-color:green;
+            }
+        }
+    }
+}
+
+// about company 작업 시작
+#about_company {
+    display:flex; justify-content:center;
+    .center {
+        width:80%;
+        .title {
+            font-size:60px; margin:80px 0; text-align:center;
+        }
+        >div {
+            display:flex; justify-content:space-between;
+            margin:100px 0;
+            .img_box {
+                width:45%;
+                img {
+                    width:100%;
+                }
+            }
+            .text_box {
+                width:45%;
+                h2 {
+                    font-size:40px; margin-bottom:80px;
+                }
+                p {
+                    line-height:1.5; margin-bottom:50px;
+                }
+            }
+        }
+        .brand_story {}
+        .menu_story {}
+        .future_plan {}
+    }
+}
+
+// 창업안내 franchise 작업 시작
+#franchise {
+    display:flex; justify-content:center;
+    .center {
+        width:80%;
+        .title {
+            font-size:60px; margin:80px 0; text-align:center;
+        }
+        table {
+            width:100%;
+            tr {
+                th {border:1px solid red; line-height:5;}
+                td {
+                    border:1px solid blue; line-height:5;
+                    padding-left:10px;
+                }
+            }
+        }
+        h2 {
+            font-size:40px; margin:80px 0;
+            span {
+                font-size:25px; font-weight:300;
+            }
+        }
+        p {
+            line-height:1.5; margin-bottom:50px;
+        }
+        ul {
+            margin-bottom:50px;
+            li {
+                line-height:3;
+                list-style:circle;
+            }
+        }
+    }
+}
+
+// 매장 목록 화면 작업시작
+#store_wrap {
+    display:flex; justify-content:center;
+    .center {
+        width:80%;
+        form {
+            display:flex; justify-content:center;
+            margin:50px 0;
+        }
+        .search_select {
+            p {}
+            select {
+                border:1px solid #000;
+            }
+            button {}
+        }
+        .search_input {
+            p {}
+            input {
+                border:1px solid #000;
+            }
+            button {}
+        }
+
+        .store_list {
+            margin:100px 0;
+            .store_box {
+                padding:50px 0;
+                border-top:1px solid #000;
+                h3 {}
+                p {}
+            }
+            &:last-child {
+                border-bottom:1px solid #000;
+            }
+        }
+    }
+}
+
+// 도넛 메뉴 작업 시작 / menu_list
+#menu_wrap {
+    display:flex; justify-content:center;
+    .center {
+        width:80%; margin:100px 0;
+        .type_btns {
+            display:flex; justify-content:space-between;
+            width:50%; margin:0 auto 100px;
+            li {width:15%;}
+        }
+        .menu_list {
+            display:flex; flex-wrap:wrap;
+            .menu_box {
+                width:20%; margin-bottom:50px;
+                .img_box {
+                    width:100%; height:100%;
+                    img {
+                        width:100%;
+                    }
+                }
+                .text_box {
+                    width:100%;
+                    p {
+                        width:100%;
+                        text-align:center;
+                    }
+                }
+            }
+        }
+    }
+}
+
+// 도넛 상세 페이지 / doughnut_detail
+#detail_wrap {
+    display:flex; justify-content:center;
+    .center {
+        width:80%; display:flex; justify-content:space-around;
+        .img_box {
+            img {}
+        }
+        .text_box {
+            margin:auto 0; height:100%;
+            display:flex; flex-direction:column; justify-content:space-around;
+            h3 {}
+            p {}
         }
     }
 }
