@@ -64,7 +64,9 @@ MongoClient.connect("mongodb+srv://admin:qwer1234@testdb.g2xxxrk.mongodb.net/?re
 
 // 메인화면 get 요청
 app.get("/",(req,res) => {
-    res.render("index.ejs");
+    db.collection("prdlist").find({}).toArray((err,result) => {
+        res.render("index.ejs",{prdData:result});
+    });
 });
 
 // 관리자 메인화면 get 요청

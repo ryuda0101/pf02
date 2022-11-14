@@ -11,7 +11,6 @@
 </head>
 <body>
     <%- include("common/header.ejs") %>
-    <%- include("common/carousel") %>
     <div id="container">
         <div class="slider">
             <div class="center">
@@ -22,15 +21,15 @@
                             <img class="right" src="/img/right.png">
                         </div>
                         <div class="circle_btns">
-                            <span></span>
+                            <span class="on"></span>
                             <span></span>
                             <span></span>
                         </div>
                     </div>
                     <div class="wide">
-                        <div class="slide01"></div>
-                        <div class="slide02"></div>
-                        <div class="slide03"></div>
+                        <div class="slide01"><img src="/img/slide01.png"></div>
+                        <div class="slide02"><img src="/img/slide02.png"></div>
+                        <div class="slide03"><img src="/img/slide03.png"></div>
                     </div>
                 </div>
             </div>
@@ -87,22 +86,22 @@
                     </div>
                     <div class="mid_box">
                         <div class="applePie show">
-                            <img src="/img/ApplePie.png">
+                            <img src="/img/menu/ApplePie.png">
                         </div>
                         <div class="pumkinPie">
-                            <img src="/img/PumpkinPie.png">
+                            <img src="/img/menu/PumpkinPie.png">
                         </div>
                         <div class="pecanPie">
-                            <img src="/img/PecanPie.png">
+                            <img src="/img/menu/PecanPie.png">
                         </div>
                         <div class="newyorkCheeseCake">
-                            <img src="/img/New-York-Cheesecake.png">
+                            <img src="/img/menu/New-York-Cheesecake.png">
                         </div>
                         <div class="doubleChocolate">
-                            <img src="/img/Double-Dark-Chocolate.png">
+                            <img src="/img/menu/Double-Dark-Chocolate.png">
                         </div>
                         <div class="sourCream">
-                            <img src="/img/Sour-Cream-Cake-Doughnut.png">
+                            <img src="/img/menu/Sour-Cream-Cake-Doughnut.png">
                         </div>
                     </div>
                 </div>
@@ -113,12 +112,12 @@
                 <h2>Always New,<br>Always Fresh.</h2>
                 <div class="count_list">
                     <div class="count">
-                        <h3>캘리포니아 도넛 클럽에서 매일 새로운 도넛을 즐겨보세요</h3>
-                        <p>캘리포니아 도넛 클럽은 매일 하루에 두번 도넛을 만듭니다.<br>매일 아침 9시와 오후 1시에 오시면 갓 만든 따듯한 도넛을 드실수 있습니다.</p>
+                        <h3 class="today_count">오늘도 새로운 도넛을 <span>00</span> 만큼 구웠습니다.</h3>
+                        <p>캘리포니아 도넛 클럽에서 매일 새로운 도넛을 즐겨보세요</p>
+                        <p>캘리포니아 도넛 클럽은 매일 하루에 두번 도넛을 만듭니다.<br>매일 아침 11시와 오후 2시에 오시면 갓 만든 따듯한 도넛을 드실수 있습니다.</p>
                         <p>도넛 만드는 시간은 일부 매장에 따라 변경될 수 있습니다.<br>자세한 소식은 각 매장에 직접 문의하세요.</p>
-                        <h3 class="today_count">오늘도 새로운 도넛을<span>00</span>만큼 구웠습니다.</h3>
                     </div>
-                    <div class="right"><img src="/img/baking01.jpg"></div>
+                    <!-- <div class="right"><img src="/img/baking01.png"></div> -->
                 </div>
             </div>
         </div>
@@ -127,7 +126,7 @@
                 <h2>News & Events</h2>
                 <div class="news_boxs">
                     <div class="left_img">
-                        <img src="/img/baking02.jpg">
+                        <img src="/img/news_img00.png">
                     </div>
                     <div class="view">
                         <div class="btns">
@@ -181,6 +180,7 @@
                 <h2>Welcome to California Doughnut Club</h2>
                 <!-- 카카오 지도 라이브러리 -->
                 <div class="map"></div>
+                <a class="more" href="/storelist">내 주변 가까운 캘리포니아 도넛클럽 매장을 찾아보세요</a>
             </div>
         </div>
     </div>
