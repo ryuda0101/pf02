@@ -133,6 +133,42 @@ footer {
 // 관리자 페이지 작업 시작
 // 수정화면 버튼 누르기 전까지 안보이게 처리
 .updateForm {display:none;}
+
+// 관리자페이지 헤더
+#admin_header {
+    display:flex; justify-content:center;
+    .center {
+        width:80%;
+        .top_line {
+            display:flex; justify-content:end;
+            p {
+                &::after {
+                    content:""; display:inline-block; transform:translateY(2px);
+                    width:2px; height:15px; background:#000;
+                    margin:0 10px;
+                }
+            }
+            a {}
+        }
+        .bot_line {
+            display:flex; justify-content:space-between;
+            .logo {
+                width:200px;
+                img {
+                    width:100%;
+                }
+            }
+            .gnb {
+                width:60%;
+                display:flex; justify-content:space-between;
+                li {
+                    a {}
+                }
+            }
+        }
+    }
+}
+
 // 로그인 페이지
 #admin_login {
     display:flex; justify-content:center;
@@ -172,6 +208,7 @@ footer {
         }
     }
 }
+
 
 
 

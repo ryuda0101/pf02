@@ -5,8 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>관리자 게시판</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
+    <%- include("common/admin_header.ejs") %>
     <div id="board_list_wrap">
         <div class="center">
             <a href="/admin/board_insert">게시글 작성</a>
@@ -15,14 +17,14 @@
                     <th class="number">번호</th>
                     <th class="auther">분류</th>
                     <th >제목</th>
-                    <th class="date">등록일자</th>
+                    <th class="date">날짜</th>
                 </tr>
                 <!-- 반복문으로 데이터 받아와서 여기에 넣어주기 -->
                 <% brdData.forEach(function(el, index){ %>
                     <tr class="brd_bot">
                         <th class="number"><%- el.num %></th>
                         <th class="classification"><%- el.classification %></th>
-                        <th class="title user_title"><a href="/detail/<%- el.num %>"><%- el.title %></a></th>
+                        <th class="title user_title"><a href="/admin/detail/<%- el.num %>"><%- el.title %></a></th>
                         <th class="date user_date"><%- el.date %></th>
                     </tr>
                 <% }); %>

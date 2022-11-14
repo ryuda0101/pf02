@@ -67,6 +67,11 @@ app.get("/",(req,res) => {
     res.render("index.ejs");
 });
 
+// 관리자 메인화면 get 요청
+app.get("/admin/home",(req,res) => {
+    res.render("admin_index",{userData:req.user});
+});
+
 
 // 로그인 기능 수행 작업
 // 로그인 화면으로 요청
@@ -80,13 +85,13 @@ app.get("/admin",function(req,res){
 app.post("/login",passport.authenticate('local', {failureRedirect : '/fail'}),function(req,res){
     //                                                   ↑ 실패시 위의 경로로 요청
     // ↓ 로그인 성공시 메인페이지로 이동
-    res.redirect("/admin/prdList")
+    res.redirect("/admin/home")
     // res.send("로그인 성공");
 });
 
 // 로그인 실패시 fail 경로
 app.get("/fail",(req,res) => {
-    res.send("로그인 실패");
+    res.send("<script>alert('로그인 실패'); location.href = '/admin'</script>");
 });
 
 // /login 경로 요청시 passport.autenticate() 함수 구간이 아이디, 비밀번호 로그인 검증 구간
@@ -103,7 +108,7 @@ passport.use(new LocalStrategy({
       if (pass == result.adminPass) {
         return done(null, result)
       } else {
-        return done(null, false, { message: '비번이 틀렸습니다' })
+        return done(null, false, { message: '비밀번호가 틀렸습니다' })
       }
     })
 }));
@@ -269,13 +274,13 @@ app.get ("/storeDelete/:no",function(req,res){
 // 관리자 게시판 페이지
 app.get("/admin/board",(req,res) => {
     db.collection("board").find({}).toArray((err,result) => {
-        res.render("admin_brd_list",{brdData:result});
+        res.render("admin_brd_list",{brdData:result, userData:req.user});
     });
 });
 
 // 관리자 게시글 작성 페이지
 app.get("/admin/board_insert",(req,res) => {
-    res.render("admin_brd_insert");
+    res.render("admin_brd_insert",{userData:req.user});
 });
 
 app.post("/add/board",upload.single('file'),(req,res) => {
@@ -302,20 +307,20 @@ app.post("/add/board",upload.single('file'),(req,res) => {
 });
 
 // 관리자 게시글 상세 페이지
-app.get("/detail/:no",(req,res) => {
+app.get("/admin/detail/:no",(req,res) => {
     db.collection("board").find({num:Number(req.params.no)}).toArray((err,result) => {
-        res.render("admin_brd_detail",{brdData:result});
+        res.render("admin_brd_detail",{brdData:result, userData:req.user});
     });
 });
 
 // 관리자 게시글 수정 페이지
 app.get("/edit/:no",(req,res) => {
     db.collection("board").find({num:Number(req.params.no)}).toArray((err,result) => {
-        res.render("admin_brd_edit",{brdData:result});
+        res.render("admin_brd_edit",{brdData:result, userData:req.user});
     });
 });
 
-app.post("/update/board",upload.single('thumbnailUp'),(req,res) => {
+app.post("/update/board",upload.single('file'),(req,res) => {
     if (req.file) {
         fileInfo = req.file.originalname;
     }
@@ -333,8 +338,13 @@ app.post("/update/board",upload.single('thumbnailUp'),(req,res) => {
     });
 });
 
-// 수정시 파일첨부기능 오류나는 문제 있음
-// 게시글 delete 기능 넣어야함
+// 게시글 삭제 기능
+app.get("/delete/:no",(req,res) => {
+    db.collection("board").deleteOne({num:Number(req.params.no)},(err,result) => {
+        res.redirect("/admin/board");
+    });
+});
+
 
 
 
@@ -441,49 +451,22 @@ app.get("/search/local",(req,res) => {
     }
   });
 
-
-
-// 파일 업로드 하는 방법
-// 1. db의 collection에 업로드한 파일명을 저장할 컬렉션을 하나 만들어준다.
-
-// 2. ejs 파일에 form태그를 만들어주고 그 안에 enctype="multipart/form-data"를 입력해준다.
-// ex. <form action="/upload" method="post" enctype="multipart/form-data">
-
-// 3. server.js에서 get 요청으로 특정 경로에 들어가면 파일 업로드 기능이 담긴 ejs파일을 열어주도록 한다.
-
-// 4. 다음의 코드를 server.js에서 입력해준다
-
-  
-// 5. post 요청으로 db의 컬렉션 안에 업로드 파일의 정보를 insertOne 해준다.
-// “/경로”와 function 사이에 꼭 upload.single('fileUpload')를 넣어줘야 한다!!
-// app.post("/add",upload.single('fileUpload'),function(req,res){
-//     db.collection("ex13_board").insertOne({
-//         fileName:req.file.originalname
-//     },function(err,result){
-//         res.redirect("/brdlist");
-//     });
-// });
-
-// 6. 업로드한 파일을 볼 상세페이지 ejs파일에서 a태그에 href=”/업로드한 파일이 들어있는 경로/<%- db의 컬렉션에 올라간 파일 정보 %>” download="" 를 써줘서 a태그 클릭시 해당 파일을 다운로드 할 수 있도록 해준다.
-// <a href=”/upload/<%- brdData.fileName” download="">다운로드</a>
-
-// 업로드한 파일 수정 방법
-// 1. 수정 파일 ejs를 get 요청
-// app.get("/edit/:no",function(req,res){
-//     db.collection("ex13_board").findOne({brdid:Number(req.params.no)},function(err,result){
-//         res.render("edit",{brdData:result,userData:req.user});
-//     });
-// });
-
-// 2. ejs파일로 수정할 페이지를 만들고 input hidden으로 value값으로 게시글의 번호값을 가진 태그를 만든다.
-
-// 3. post 요청으로 다음과 같이 요청해준다.
-// app.post("/edit",upload.single('fileUpload'),function(req,res){
-//     db.collection("ex13_board").updateOne({brdid:Number(req.body.id)},{$set:{
-//         brdtitle:req.body.title,
-//         brdcontext:req.body.context,
-//         fileName:req.file.originalname
-//     }},function(err,result){
-//         res.redirect("/brddetail/" + req.body.id);
-//     });
-// });
+// 사용자가 보는 게시판 페이지
+// 새로운 소식
+app.get("/board/news", (req,res) => {
+    db.collection("board").find({classification:"news"}).toArray((err,result) => {
+        res.render("board_news_list",{brdData:result});
+    });
+});
+// 공지사항
+app.get("/board/notice", (req,res) => {
+    db.collection("board").find({classification:"notice"}).toArray((err,result) => {
+        res.render("board_notice_list",{brdData:result});
+    });
+});
+// 게시글 상세 페이지
+app.get("/detail/:no",(req,res) => {
+    db.collection("board").find({num:Number(req.params.no)}).toArray((err,result) => {
+        res.render("board_detail",{brdData:result});
+    });
+});

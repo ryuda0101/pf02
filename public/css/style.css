@@ -215,6 +215,41 @@ footer .center .copyright {
   display: none;
 }
 
+#admin_header {
+  display: flex;
+  justify-content: center;
+}
+#admin_header .center {
+  width: 80%;
+}
+#admin_header .center .top_line {
+  display: flex;
+  justify-content: end;
+}
+#admin_header .center .top_line p::after {
+  content: "";
+  display: inline-block;
+  transform: translateY(2px);
+  width: 2px;
+  height: 15px;
+  background: #000;
+  margin: 0 10px;
+}
+#admin_header .center .bot_line {
+  display: flex;
+  justify-content: space-between;
+}
+#admin_header .center .bot_line .logo {
+  width: 200px;
+}
+#admin_header .center .bot_line .logo img {
+  width: 100%;
+}
+#admin_header .center .bot_line .gnb {
+  width: 60%;
+  display: flex;
+  justify-content: space-between;
+}
 #admin_login {
   display: flex;
   justify-content: center;

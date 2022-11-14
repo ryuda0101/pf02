@@ -5,8 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>관리자 게시글 상세페이지</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
+    <%- include("common/admin_header.ejs") %>
     <div id="board_detail_wrap">
         <div class="center">
             <% for(let i = 0; i < brdData.length; i++){ %>
@@ -40,5 +42,6 @@
             <% } %> 
         </div>
     </div>
+    <script src="/js/deleteBtn.js"></script>
 </body>
 </html>
