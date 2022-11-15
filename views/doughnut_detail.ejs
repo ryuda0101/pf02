@@ -14,16 +14,32 @@
     <div id="detail_wrap">
         <div class="center">
             <% for(let i = 0; i < prdData.length; i++){ %>
-                <div class="img_box">
-                    <img src="/upload/<%- prdData[i].thumbnail %>">
-                </div>
-                <div class="text_box">
+                <div class="top">
                     <h3><%- prdData[i].name %></h3>
-                    <p><%- prdData[i].taste %></p>
-                    <p>가격: <%- prdData[i].price %>￦</p>
-                    <p>영양 정보: <%- prdData[i].calorie %></p>
-                    <p>알레르기 정보: <%- prdData[i].allergy %></p>
                 </div>
+                <div class="bot">
+                    <div class="img_box">
+                        <img src="/upload/<%- prdData[i].thumbnail %>">
+                    </div>
+                    <div class="text_box">
+                        <p class="taste"><%- prdData[i].taste %></p>
+                        <p class="sub_text">영양 정보</p>
+                        <ul>
+                            <li>가격: <%- prdData[i].price %>￦</li>
+                            <li>영양 정보: <%- prdData[i].calorie %></li>
+                            <li>알레르기 정보: <%- prdData[i].allergy %></li>
+                        </ul>
+                    </div>
+                </div>
+                <% if(prdData[i].category == "도넛"){ %>
+                    <a href="/menu/doughnut">목록</a>
+                <% } else if (prdData[i].category == "커피") { %>
+                    <a href="/menu/coffee">목록</a>
+                <% } else if (prdData[i].category == "티") { %>
+                    <a href="/menu/tea">목록</a>
+                <% } else if (prdData[i].category == "에이드") { %>
+                    <a href="/menu/ade">목록</a>
+                <% } %> 
             <% } %>
         </div>
     </div>

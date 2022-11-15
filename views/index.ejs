@@ -38,7 +38,27 @@
             <div class="center">
                 <h2>Limited Time</h2>
                 <div class="new_prd_list">
-                    <ul class="left_box">
+                    <ul class="left_boxs">
+                        <% for(let i = 0; i < prdData.length; i++){ %>
+                        <li class="box"><p><%- prdData[i].name %></p></li>
+                        <% } %>
+                    </ul>
+                    <div class="right_boxs">
+                        <% for(let i = 0; i < prdData.length; i++){ %>
+                        <div class="box">
+                            <h3><%- prdData[i].name %></h3>
+                            <p><%- prdData[i].taste %></p>
+                            <p><%- prdData[i].nutrition %></p>
+                            <p><%- prdData[i].allergy %></p>
+                        </div>
+                        <% } %>
+                    </div>
+                    <div class="mid_boxs">
+                        <% for(let i = 0; i < prdData.length; i++){ %>
+                        <div class="box"><img src="/upload/<%- prdData[i].thumbnail %>"></div>
+                        <% } %>
+                    </div>
+                    <!-- <ul class="left_box">
                         <li><a href="#">애플파이 도넛 ..... 2,000</li></a>
                         <li><a href="#">호박파이 도넛 ..... 3,000</li></a>
                         <li><a href="#">피칸파이 도넛 ..... 3,500</li></a>
@@ -103,7 +123,7 @@
                         <div class="sourCream">
                             <img src="/img/menu/Sour-Cream-Cake-Doughnut.png">
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -134,42 +154,14 @@
                             <img class="up" src="/img/up.png">
                         </div>
                         <div class="boxs">
+                            <% for(let i = 0; i < brdData.length; i++){ %>
                             <div class="box">
-                                <p>NEWS</p>
-                                <h4>다음 오픈 매장은 청주점 입니다</h4>
-                                <p> ~ 2022/12/03</p>
-                                <img src="/img/right_b.png">
+                                    <p><%- brdData[i].classification %></p>
+                                    <a href="/detail/<%- brdData[i].num %>"><%- brdData[i].title %></a>
+                                    <p><%- brdData[i].date %></p>
+                                    <img src="/img/right_b.png">
                             </div>
-                            <div class="box">
-                                <p>NEWS</p>
-                                <h4>캘도 본점 단축 영업 안내</h4>
-                                <p>2022/10/19 ~ 2022/10/20</p>
-                                <img src="/img/right_b.png">
-                            </div>
-                            <div class="box">
-                                <p>NEWS</h4>
-                                <h4>캘도 덕이 본점 새로운 소식</h4>
-                                <p>2022/10/12 ~</p>
-                                <img src="/img/right_b.png">
-                            </div>
-                            <div class="box">
-                                <p>NEWS</p>
-                                <h4>+1 도넛 증정 이벤트</h4>
-                                <p>2022/09/28 ~ 2022/10/01</p>
-                                <img src="/img/right_b.png">
-                            </div>
-                            <div class="box">
-                                <p>NEWS</p>
-                                <h4>신세계백화점 천안아산점 팝업스토어 오픈</h4>
-                                <p>2022/09/12 ~ 2022/09/26</p>
-                                <img src="/img/right_b.png">
-                            </div>
-                            <div class="box last_box">
-                                <p>NEWS</p>
-                                <h4>현대 프리미엄 아울렛 김포점 팝업스토어 오픈</h4>
-                                <p>2022/09/01 ~ 2022/09/15</p>
-                                <img src="/img/right_b.png">
-                            </div>
+                            <% } %>
                         </div>
                     </div>
                 </div>
@@ -179,12 +171,74 @@
             <div class="center">
                 <h2>Welcome to California Doughnut Club</h2>
                 <!-- 카카오 지도 라이브러리 -->
-                <div class="map"></div>
+                <div class="img_boxs">
+                    <img src="/img/img01.jpg">
+                    <img src="/img/img02.jpg">
+                    <img src="/img/img03.jpg">
+                    <img src="/img/img04.jpg">
+                    <img src="/img/img05.jpg">
+                </div>
+                <div class="text_boxs">
+                    <div class="line">
+                        <div class="carousel01 play">
+                            <span class="red"></span>
+                            <span class="blue">California Doughnut Club</span>
+                            <span class="red">California Doughnut Club</span>
+                            <span class="blue">California Doughnut Club</span>
+                            <span class="red">California Doughnut Club</span>
+                            <span class="blue">California Doughnut Club</span>
+                        </div>
+                        <div class="carousel02 play">
+                            <span class="red">California Doughnut Club</span>
+                            <span class="blue">California Doughnut Club</span>
+                            <span class="red">California Doughnut Club</span>
+                            <span class="blue">California Doughnut Club</span>
+                            <span class="red">California Doughnut Club</span>
+                        </div>
+                    </div>
+                    <div class="line right">
+                        <div class="carousel01 play right">
+                            <span class="red"></span>
+                            <span class="blue">California Doughnut Club</span>
+                            <span class="red">California Doughnut Club</span>
+                            <span class="blue">California Doughnut Club</span>
+                            <span class="red">California Doughnut Club</span>
+                            <span class="blue">California Doughnut Club</span>
+                        </div>
+                        <div class="carousel02 play right">
+                            <span class="red">California Doughnut Club</span>
+                            <span class="blue">California Doughnut Club</span>
+                            <span class="red">California Doughnut Club</span>
+                            <span class="blue">California Doughnut Club</span>
+                            <span class="red">California Doughnut Club</span>
+                        </div>
+                    </div>
+                    <div class="line">
+                        <div class="carousel01 play">
+                            <span class="red"></span>
+                            <span class="blue">California Doughnut Club</span>
+                            <span class="red">California Doughnut Club</span>
+                            <span class="blue">California Doughnut Club</span>
+                            <span class="red">California Doughnut Club</span>
+                            <span class="blue">California Doughnut Club</span>
+                        </div>
+                        <div class="carousel02 play">
+                            <span class="red">California Doughnut Club</span>
+                            <span class="blue">California Doughnut Club</span>
+                            <span class="red">California Doughnut Club</span>
+                            <span class="blue">California Doughnut Club</span>
+                            <span class="red">California Doughnut Club</span>
+                        </div>
+                    </div>
+                </div>
                 <a class="more" href="/storelist">내 주변 가까운 캘리포니아 도넛클럽 매장을 찾아보세요</a>
             </div>
         </div>
     </div>
-    <%- include("common/carousel") %>
     <%- include("common/footer.ejs") %>
+    <!-- 메인화면 슬라이더 관련 스크립트 -->
+    <script src="/js/main_slide.js"></script>
+    <!-- Limited time 관련 스크립트 -->
+    <script src="/js/limited_time.js"></script>
 </body>
 </html>

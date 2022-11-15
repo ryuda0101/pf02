@@ -64,9 +64,11 @@ MongoClient.connect("mongodb+srv://admin:qwer1234@testdb.g2xxxrk.mongodb.net/?re
 
 // 메인화면 get 요청
 app.get("/",(req,res) => {
-    db.collection("prdlist").find({}).toArray((err,result) => {
-        res.render("index.ejs",{prdData:result});
-    });
+    db.collection("board").find({}).toArray((err,result_brd) => {
+        db.collection("prdlist").find({category:"도넛"}).toArray((err,result) => {
+            res.render("index.ejs",{prdData:result, brdData:result_brd});
+        });
+    })
 });
 
 // 관리자 메인화면 get 요청
@@ -358,18 +360,8 @@ app.get("/menu/doughnut",(req,res) => {
         res.render("menu_list",{prdData:result});
     });
 });
-app.get("/menu/jam",(req,res) => {
-    db.collection("prdlist").find({category:"잼"}).toArray((err,result) => {
-        res.render("menu_list",{prdData:result});
-    });
-});
 app.get("/menu/coffee",(req,res) => {
     db.collection("prdlist").find({category:"커피"}).toArray((err,result) => {
-        res.render("menu_list",{prdData:result});
-    });
-});
-app.get("/menu/latte",(req,res) => {
-    db.collection("prdlist").find({category:"라떼"}).toArray((err,result) => {
         res.render("menu_list",{prdData:result});
     });
 });

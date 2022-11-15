@@ -16,24 +16,29 @@
                 <!-- db에서 데이터 받아와서 여기에 넣어주기 -->
                 <tr class="brd_line top_line">
                     <th class="title left_th">제목</th>
-                    <th class="title right_th"><%- brdData[i].title %></th>
+                    <td class="title right_th"><%- brdData[i].title %></td>
                 </tr>
                 <tr class="brd_line">
                     <th class="date left_th">날짜</th>
-                    <th class="date right_th"><%- brdData[i].date %></th>
+                    <td class="date right_th"><%- brdData[i].date %></td>
                 </tr>
                 <tr class="brd_line">
                     <th class="classification">분류</th>
-                    <th class="classification"><%- brdData[i].classification %></th>
+                    <td class="classification"><%- brdData[i].classification %></td>
                 </tr>
             </table> 
             <div class="brd_context">
-                <%- brdData[i].context %>
-            </div>           
+                <p><%- brdData[i].context %></p>
+            </div>
             <div class="brd_img_box">
                 <img src="/upload/<%- brdData[i].file %>">
             </div>
-            <% } %> 
+                <% if(brdData[i].classification == "news"){ %>
+                    <a href="/board/news">목록</a>
+                <% } else { %>
+                    <a href="/board/notice">목록</a>
+                <% } %> 
+            <% } %>
         </div>
     </div>
     <%- include("common/footer.ejs") %>

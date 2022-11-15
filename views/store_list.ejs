@@ -17,23 +17,27 @@
             <form action="/search/local" method="get">
                 <div class="search_select">
                     <p>지역으로 검색</p>
-                    <!-- 시/도 선택 -->
-                    <select class="city1 sido" name="sido">
-                        <option value>시/도 선택</option>
-                    </select>
-                    <!-- 구/군 선택 -->
-                    <select class="city2 gugun" name="gugun">
-                        <option value>구/군 선택</option>
-                    </select>
-                    <button type="submit">검색</button>
+                    <div class="search_box">
+                        <!-- 시/도 선택 -->
+                        <select class="city1 sido" name="sido">
+                            <option value>시/도 선택</option>
+                        </select>
+                        <!-- 구/군 선택 -->
+                        <select class="city2 gugun" name="gugun">
+                            <option value>구/군 선택</option>
+                        </select>
+                        <button type="submit">검색</button>
+                    </div>
                 </div>
             </form>
 
             <form action="/search/storename" method="get">
                 <div class="search_input">
                     <p>매장명으로 검색</p>
-                    <input type="text" name="name">
-                    <button type="submit">검색</button>
+                    <div class="search_box">
+                        <input type="text" name="name">
+                        <button type="submit">검색</button>
+                    </div>
                 </div>
             </form>
             
@@ -44,7 +48,6 @@
                 <% } else { %>
                     <% for(let i = 0; i < storeData.length; i++){ %>
                         <div class="store_box">
-                            <p><%- storeData[i].num %></p>
                             <h3><%- storeData[i].name %></h3>
                             <p><%- storeData[i].sido %> <%- storeData[i].sigugun %></p>
                             <p><%- storeData[i].address %></p>

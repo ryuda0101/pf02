@@ -23,9 +23,7 @@
             <form class="add_prd" action="/add/prdlist" method="post" enctype="multipart/form-data">
                 <select name="category">
                     <option value="도넛">도넛</option>
-                    <option value="잼">잼</option>
                     <option value="커피">커피</option>
-                    <option value="라떼">라떼</option>
                     <option value="티">티</option>
                     <option value="에이드">에이드</option>
                 </select>
@@ -55,6 +53,7 @@
                     <p><%- prdData[i].taste %></p>
                     <p><%- prdData[i].price %></p>
                     <p><%- prdData[i].calorie %></p>
+                    <p><%- prdData[i].nutrition %></p>
                     <p><%- prdData[i].allergy %></p>
                     <img src="/upload/<%- prdData[i].thumbnail %>">
                     <div class="btns">
@@ -67,9 +66,7 @@
                             <input type="hidden" name="hiddenNo" id="hidden" value="<%- prdData[i].num %>">
                             <select name="categoryUp">
                                 <option value="도넛">도넛</option>
-                                <option value="잼">잼</option>
                                 <option value="커피">커피</option>
-                                <option value="라떼">라떼</option>
                                 <option value="티">티</option>
                                 <option value="에이드">에이드</option>
                             </select>

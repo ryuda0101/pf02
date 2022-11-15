@@ -15,9 +15,7 @@
         <div class="center">
             <ul class="type_btns">
                 <li><a href="/menu/doughnut">도넛</a></li>
-                <li><a href="/menu/jam">잼</a></li>
                 <li><a href="/menu/coffee">커피</a></li>
-                <li><a href="/menu/latte">라떼</a></li>
                 <li><a href="/menu/tea">티</a></li>
                 <li><a href="/menu/ade">에이드</a></li>
             </ul>
@@ -36,5 +34,17 @@
         </div>
     </div>
     <%- include("common/footer.ejs") %>
+
+    <script>
+        let currentPath = window.location.pathname;
+        const typeBtns = document.querySelectorAll(".type_btns li");
+
+        typeBtns.forEach((item,index)=>{
+           let childRef = item.querySelector("a").getAttribute("href");
+           if(currentPath === childRef){
+                item.classList.add("on");
+           }
+        });
+    </script>
 </body>
 </html>

@@ -66,10 +66,9 @@ header {
 
 // 풋터 작업 시작
 footer {
-    background-color:blue;
+    background-color:#333;
     display:flex; justify-content:center;
     .center {
-        background-color:skyblue;
         width:80%; height:200px;
         display:flex; flex-direction:column; align-items:center; justify-content:space-between;
         padding:100px 0;
@@ -91,19 +90,21 @@ footer {
             display:flex; flex-wrap:wrap;
             li {
                 font-size:13px;
+                color:#ccc;
                 &::after {
                     content:""; display:inline-block;
-                    width:2px; height:16px; background-color:red;
+                    width:2px; height:13px; background-color:#ccc;
                     transform:translateY(2px); margin:0 10px;
                 }
                 &:last-child {
+                    transform:translateY(2px);
                     &::after {
                         display:none;
                     }
                 }
             }
         }
-        .copyright {font-size:13px;}
+        .copyright {font-size:13px; color:#ccc;}
     }
 }
 
@@ -240,7 +241,10 @@ footer {
                 // 스크립트에서 버튼 클릭시
                 .btns {
                     .point_btns {
-                        img {width:30px; position:absolute; top:50%; transform:translateY(-50%);}
+                        img {
+                            width:30px; position:absolute; top:50%; transform:translateY(-50%);
+                            cursor:pointer;
+                        }
                         .left {left:20px;}
                         .right {right:20px;}
                     }
@@ -249,16 +253,19 @@ footer {
                         span {
                             display:inline-block; margin:0 10px;
                             width:20px; height:20px; background-color:#c73d40; border-radius:50%;
-                            opacity:0.8;
+                            opacity:0.8; cursor:pointer;
                         }
                         .on {background-color:#fff; opacity:1;}
                     }
                 }
                 .wide {
-                    display:flex; width:300%;
                     // 스크립트에서 left값 줘야할 태그
+                    display:flex; width:300%; transition:all 0.5s;
                     >div {
-                        width:33.333333%;
+                        width:33.333333%; display:flex;
+                        img {
+                            margin:0 auto;
+                        }
                     }
                 }
             }
@@ -272,48 +279,58 @@ footer {
             .new_prd_list {
                 display:flex; justify-content:space-between;
                 position:relative; height:500px;
-                .left_box {
+                .left_boxs {
                     width:47%; border:2px solid #c73d40;
                     border-radius:25px;
                     display:flex; justify-content:space-around; flex-direction:column;
                     padding:0 0 0 50px; box-sizing:border-box;
-                    li {
-                        a {
+                    .box {
+                        p {
+                            display:inline-block; cursor:pointer;
                             position:relative; line-height:1.5; transition:all 0.5s;
+                            color:#666;
                             &::after {
                                 content:""; display:block; position:absolute;
                                 width:0; height:2px; background-color:#c73d40;
                                 transition:all 0.5s;
                             }
                             &:hover {
-                                font-size:20px;
                                 &::after {
                                     width:100%;
                                 }
                             }
                         }
                     }
+                    .box.on {
+                        p {
+                            font-size:20px; color:#000;
+                            &::after {
+                                width:100%;
+                            }
+                        }
+                    }
                 }
-                .right_box {
+                .right_boxs {
                     width:47%; border:2px solid #c73d40;
                     border-radius:25px; position:relative;
-                    >div {
-                        position:absolute; top:50%; transform:translateY(-50%); right:50px;
-                        display:none;
+                    .box {
+                        position:absolute; top:60%; transform:translateY(-50%); right:50px;
+                        opacity:0;
                         text-align:right;
+                        transition:all 0.5s;
                         h3 {margin-bottom:30px;}
                         p {line-height:3;}
                     }
-                    >div.show {
-                        display:block;
+                    .box.show {
+                        opacity:1; top:50%;
                     }
                 }
-                .mid_box {
-                    position:absolute; top:50%; left:50%; transform:translate(-50%, -50%);
-                    >div {
-                        display:none;
+                .mid_boxs {
+                    .box {
+                        position:absolute; top:50%; left:50%; transform:translate(-50%, -50%);
+                        transition:all 0.5s; opacity:0;
                     }
-                    >div.show {display:block;}
+                    .box.show {opacity:1;}
                 }
             }
         }
@@ -371,6 +388,8 @@ footer {
                     width:47%; position:relative;
                     display:flex; flex-direction:column;
                     height:876px; overflow:hidden;
+                    border-top:4px solid #c73d40;
+                    border-bottom:4px solid #c73d40;
                     &:hover {
                         .btns {
                             .up {top:20px;}
@@ -395,10 +414,11 @@ footer {
                             border-top:1px solid #c73d40;
                             position:relative;
                             cursor:pointer;
-                            h4 {
+                            a {
                                 margin:15px 0;
                                 font-size:20px;
                                 font-weight:300;
+                                display:block;
                             }
                             p {
                                 font-size:12px;
@@ -419,9 +439,61 @@ footer {
     }
     .location {
         h2 {color:#c73d40;}
+        display:flex; justify-content:center;
         .center {
-            .map {
-                height:500px; background-color:green;
+            width:80%; overflow:hidden;
+            .img_boxs {
+                width:100%;
+                position:relative;
+                img {
+                    position:absolute; top:0; left:0;
+                    width:100%;
+                    display:none;
+                }
+                .show {
+                    display:block;
+                }
+            }
+            .text_boxs {
+                .line {
+                    display:flex; white-space:nowrap;
+                    >div {
+                        display:inline-flex;
+                    }
+                    span {
+                        display:block; box-sizing:border-box; margin:0 15px;
+                        font-size:60px;
+                        &:hover {
+                            
+                        }
+                    }
+                    .red {
+                        -webkit-text-fill-color:transparent;
+                        -webkit-text-stroke-width:1px;
+                        -webkit-text-stroke-color:#e8006c;
+                    }
+                    .blue {
+                        -webkit-text-fill-color:transparent;
+                        -webkit-text-stroke-width:1px;
+                        -webkit-text-stroke-color:#6dc4d8;
+                    }
+                    .play {
+                        animation: textSlide 45s linear infinite;
+                    }
+                    @keyframes textSlide{
+                        0% {transform:translateX(0)}
+                        100% {transform: translateX(-100%)}
+                    }
+                }
+                .line.right {
+                    .right {
+                        animation: rightSlide 45s linear infinite;
+                    }
+                    @keyframes rightSlide{
+                        0% {transform:translateX(-100%)}
+                        100% {transform: translateX(0)}
+                    }
+                }
             }
             .more {
                 margin-top:100px; display:block;
@@ -436,15 +508,18 @@ footer {
 
 // about company 작업 시작
 #about_company {
-    display:flex; justify-content:center;
-    .center {
-        width:80%;
-        .title {
-            font-size:60px; margin:80px 0; text-align:center;
-        }
-        >div {
+    h2 {
+        color:#c73d40;
+    }
+    .title {
+        font-size:60px; margin:80px 0; text-align:center;
+    }
+    .box {
+        display:flex; justify-content:center;
+        margin:100px 0;
+        .center {
+            width:80%;
             display:flex; justify-content:space-between;
-            margin:100px 0;
             .img_box {
                 width:45%;
                 img {
@@ -457,14 +532,27 @@ footer {
                     font-size:40px; margin-bottom:80px;
                 }
                 p {
-                    line-height:1.5; margin-bottom:50px;
+                    line-height:1.5; margin-bottom:50px; color:#333;
                 }
             }
         }
-        .brand_story {}
-        .menu_story {}
-        .future_plan {}
     }
+    .brand_story {}
+    .menu_story {
+        background-color:#c73d40;
+        padding:100px 0;
+        .center {
+            .text_box {
+                h2 {
+                    color:#fbf9e5;
+                }
+                p {
+                    line-height:1.5; margin-bottom:50px; color:#fbf9e5;
+                }
+            }
+        }
+    }
+    .future_plan {}
 }
 
 // 창업안내 franchise 작업 시작
@@ -472,15 +560,18 @@ footer {
     display:flex; justify-content:center;
     .center {
         width:80%;
+        h2 {
+            color:#c73d40;
+        }
         .title {
             font-size:60px; margin:80px 0; text-align:center;
         }
         table {
             width:100%;
             tr {
-                th {border:1px solid red; line-height:5;}
+                th {border:1px solid #c73d40; line-height:5;}
                 td {
-                    border:1px solid blue; line-height:5;
+                    border:1px solid #c73d40; line-height:5;
                     padding-left:10px;
                 }
             }
@@ -513,31 +604,47 @@ footer {
             display:flex; justify-content:center;
             margin:50px 0;
         }
+        button {
+            background-color:#c73d40; color:#fff;
+            width:200px;                     height:40px;
+        }
         .search_select {
-            p {}
-            select {
-                border:1px solid #000;
+            width:70%;
+            .search_box {
+                display:flex; justify-content:space-between;
+                select {
+                    border:1px solid #000;
+                    width:40%;
+                    height:40px;
+                }
             }
-            button {}
         }
         .search_input {
-            p {}
-            input {
-                border:1px solid #000;
+            width:70%;
+            .search_box {
+                display:flex; justify-content:space-between;
+                height:40px;
+                input {
+                    border:1px solid #000;
+                    width:80.4%;
+                }
             }
-            button {}
         }
 
         .store_list {
             margin:100px 0;
             .store_box {
                 padding:50px 0;
-                border-top:1px solid #000;
-                h3 {}
-                p {}
+                border-top:1px solid #c73d40;
+                h3 {
+                    margin-bottom:20px;
+                }
+                p {
+                    line-height:1.5;
+                }
             }
             &:last-child {
-                border-bottom:1px solid #000;
+                border-bottom:1px solid #c73d40;
             }
         }
     }
@@ -551,7 +658,38 @@ footer {
         .type_btns {
             display:flex; justify-content:space-between;
             width:50%; margin:0 auto 100px;
-            li {width:15%;}
+            li {
+                width:15%;
+                a {
+                    position:relative;
+                    display:inline-block;
+                    text-align:center;
+                    left:50%;
+                    transform:translateX(-50%);
+                    &::after {
+                        position:absolute;
+                        content:""; display:block;
+                        width:0; height:1px;
+                        background-color:#c73d40;
+                        margin-top:5px;
+                        transition:all 0.5s;
+                }
+                }
+                &:hover {
+                    a {
+                        &::after {
+                            width:100%;
+                        }
+                    }
+                }
+            }
+            li.on{
+                a{
+                    color:red;
+                    font-size:30px;
+                    font-weight:bold;
+                }
+            }
         }
         .menu_list {
             display:flex; flex-wrap:wrap;
@@ -565,9 +703,29 @@ footer {
                 }
                 .text_box {
                     width:100%;
-                    p {
-                        width:100%;
+                    a {
+                        position:relative;
+                        display:inline-block;
                         text-align:center;
+                        left:50%;
+                        transform:translateX(-50%);
+                        &::after {
+                            position:absolute;
+                            content:""; display:block;
+                            width:0; height:1px;
+                            background-color:#c73d40;
+                            margin-top:5px;
+                            transition:all 0.5s;
+                        }
+                    }
+                }
+                &:hover {
+                    .text_box {
+                        a {
+                           &::after {
+                               width:100%;
+                           }
+                        }
                     }
                 }
             }
@@ -578,16 +736,124 @@ footer {
 // 도넛 상세 페이지 / doughnut_detail
 #detail_wrap {
     display:flex; justify-content:center;
+    padding:100px 0;
     .center {
-        width:80%; display:flex; justify-content:space-around;
-        .img_box {
-            img {}
+        width:80%;
+        .top {
+            width:100%;
+            &::after {
+                content:"";
+                display:block;
+                width:100%; height:4px;
+                background-color:#c73d40;
+            }
+            h3 {
+                font-size:40px; color:#c73d40;
+                margin-bottom:30px;
+            }
         }
-        .text_box {
-            margin:auto 0; height:100%;
-            display:flex; flex-direction:column; justify-content:space-around;
-            h3 {}
-            p {}
+        .bot {
+            display:flex; justify-content:space-around;
+            width:70%; margin:0 auto;
+            padding:100px 0;
+            .img_box {
+                width:45%;
+                img {
+                    width:100%;
+                }
+            }
+            .text_box {
+                width:45%;
+                margin:auto 0; height:100%;
+                display:flex; flex-direction:column; justify-content:space-around;
+                .taste {
+                    margin-bottom:40px;
+                }
+                .sub_text {
+                    font-size:11px; color:#333;
+                    margin-bottom:10px;
+                }
+                ul {
+                    border-top:25px solid #c73d40;
+                    li {
+                        border-bottom:1px solid #c73d40;
+                        line-height:3;
+                    }
+                }
+            }
+        }
+        a {
+            display:block;
+            text-align:center;
+            // border:1px solid #c73d40;
+            width:160px; margin:0 auto;
+            height:50px; line-height:50px;
+            color:#fff; background-color:#c73d40;
+        }
+    }
+}
+
+// 사용자 게시판 페이지
+#board_list_wrap {
+    display:flex; justify-content:center;
+    margin:100px 0;
+    .center {
+        width:80%;
+        h2 {
+            font-size:40px; color:#c73d40;
+            margin-bottom:50px;
+        }
+        .brd_wrap {
+            margin:0 auto;
+            width:100%;
+            th {
+                border-top:4px solid #c73d40;
+                border-bottom:4px solid #c73d40;
+                line-height:4; text-align:start;
+            }
+            td {
+                border-bottom:1px solid #c73d40;
+                line-height:4;
+            }
+            .number {width:10%; text-align:center;}
+            .classification {width:10%;}
+            .title {width:50%;}
+            .date {width:30%;}
+        }
+    }
+}
+// 사용자 게시글 상세 페이지
+#board_detail_wrap {
+    white-space:pre;
+    display:flex; justify-content:center;
+    .center {
+        width:80%;
+        .brd_detail {
+            width:100%;
+            border-top:4px solid #c73d40;
+            .brd_line {
+                border-bottom:1px solid #c73d40;
+                th {
+                    line-height:3;
+                }
+            }
+        }
+        .brd_context {
+            p {
+                text-align:center;
+                line-height:1.5;
+            }
+        }
+        .brd_img_box {
+            display:flex; justify-content:center;
+        }
+        a {
+            display:block;
+            text-align:center;
+            // border:1px solid #c73d40;
+            width:160px; margin:0 auto;
+            height:50px; line-height:50px;
+            color:#fff; background-color:#c73d40;
         }
     }
 }
