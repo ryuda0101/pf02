@@ -13,35 +13,48 @@
     <%- include("common/admin_header.ejs") %>
     <div id="admin_prdlist">
         <div class="center">
-            <!-- 상품목록 페이지 / 매장등록 페이지 -->
-            <ul class="admin_menu">
-                <li><a href="/admin/prdlist">상품 등록 페이지</a></li>
-                <li><a href="/admin/storelist">매장 등록 페이지</a></li>
-                <li><a href="/admin/board">게시판 페이지</a></li>
-            </ul>
             <!-- 상품을 등록하는 form태그 구간 -->
             <form class="add_prd" action="/add/prdlist" method="post" enctype="multipart/form-data">
-                <select name="category">
-                    <option value="도넛">도넛</option>
-                    <option value="커피">커피</option>
-                    <option value="티">티</option>
-                    <option value="에이드">에이드</option>
-                </select>
-                <label for="name">상품명</label>
-                <input type="text" name="name" id="name">
-                <label for="thumbnail">상품 이미지</label>
-                <input type="file" name="thumbnail" id="thumbnail">
-                <label for="taste">상품 맛 설명</label>
-                <input type="text" name="taste" id="taste">
-                <label for="price">상품 가격</label>
-                <input type="text" name="price" id="price">
-                <label for="calorie">상품 칼로리 정보</label>
-                <input type="text" name="calorie" id="calorie">
-                <label for="nutrition">상품 영양 정보</label>
-                <input type="text" name="nutrition" id="nutrition">
-                <label for="allergy">상품 알레르기 정보</label>
-                <input type="text" name="allergy" id="allergy">
+                <div class="line">
+                    <label for="category">카테고리</label>
+                    <select name="category" id="category">
+                        <option value="도넛">도넛</option>
+                        <option value="커피">커피</option>
+                        <option value="티">티</option>
+                        <option value="에이드">에이드</option>
+                    </select>
+                </div>
+                <div class="line">
+                    <label for="name">상품명</label>
+                    <input type="text" name="name" id="name" placeholder="상품명">
+                </div>
+                <div class="line">
+                    <label for="thumbnail">상품 이미지</label>
+                    <input type="file" name="thumbnail" id="thumbnail">
+                </div>
+                <div class="line">
+                    <label for="taste">상품 맛 설명</label>
+                    <input type="text" name="taste" id="taste" placeholder="상품 맛 설명">
+                </div>
+                <div class="line">
+                    <label for="price">상품 가격</label>
+                    <input type="text" name="price" id="price" placeholder="상품 가격">
+                </div>
+                <div class="line">
+                    <label for="calorie">상품 칼로리 정보</label>
+                    <input type="text" name="calorie" id="calorie" placeholder="상품 칼로리 정보">
+                </div>
+                <div class="line">
+                    <label for="nutrition">상품 영양 정보</label>
+                    <input type="text" name="nutrition" id="nutrition" placeholder="상품 영양 정보">
+                </div>
+                <div class="line">
+                    <label for="allergy">상품 알레르기 정보</label>
+                    <input type="text" name="allergy" id="allergy" placeholder="상품 알레르기 정보">
+                </div>
+                <div class="line">
                 <button type="submit">상품등록</button>
+                </div>
             </form>
             <!-- 등록된 상품 목록 전부 보여주는 구간 -->
             <div class="prdwrap">
@@ -58,7 +71,7 @@
                     <img src="/upload/<%- prdData[i].thumbnail %>">
                     <div class="btns">
                         <a class="editBtn" href="#">수정하기</a>
-                        <a href="/prdDelete/<%- prdData[i].num %>">삭제하기</a>
+                        <a class="deleteBtn" href="/prdDelete/<%- prdData[i].num %>">삭제하기</a>
                     </div>
                     <!-- 상품을 수정하는 form태그 구간 -->
                     <form class="updateForm" action="/prdUpdate" method="post" enctype="multipart/form-data">
@@ -95,5 +108,7 @@
     </div>
     <!-- 수정버튼 관련 스크립트 -->
     <script src="/js/admin_edit.js"></script>
+    <!-- 삭제버튼 관련 스크립트 -->
+    <script src="/js/deleteBtns.js"></script>
 </body>
 </html>

@@ -186,7 +186,6 @@ app.post("/add/prdlist",upload.single('thumbnail'),(req,res) => {
         },(err,result) => {
             db.collection("count").updateOne({name:"상품등록"},{$inc:{prdCount:1}},(err,result) => {
                 res.redirect("/admin/prdlist")
-                console.log(req.body)
             });
         });
     });
@@ -223,6 +222,7 @@ app.post("/prdUpdate",upload.single('thumbnailUp'),function(req,res){
 // 상품정보 삭제 요청
 app.get ("/prdDelete/:no",function(req,res){
     db.collection("prdlist").deleteOne({num:Number(req.params.no)},function(err,result){
+        // res.send("<script>let check = confirm('삭제하시겠습니까?'); if(!check) {event.preventDefault();} else {location.href = '/admin/prdlist';}</script>");
         res.redirect("/admin/prdlist");
     })
 });
