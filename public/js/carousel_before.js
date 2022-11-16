@@ -15,53 +15,40 @@ let lineMove = [0,-endPoint,0];
 let autoMove = (count)=>{
 
     line.forEach((item,index)=>{
-        item.classList.contains("right") ? rightCheck(count,item,index) : leftCheck(count,item,index);
-    });
-}
-
-let mouseUpAuto = (aaa,count,count2) =>{
-    line.forEach((item,index)=>{
-        if(aaa === index){
-            item.classList.contains("right") ? rightCheck(count,item,index) : leftCheck(count,item,index);
+        if(item.classList.contains("right")){
+            lineMove[index] = lineMove[index] + count
+            item.style.marginLeft = lineMove[index] + "px";
+            if(lineMove[index] >= 0){
+                item.prepend(item.lastElementChild);
+                lineMove[index] = -endPoint;
+                item.style.marginLeft = lineMove[index] + "px";
+            }
         }
         else{
-            item.classList.contains("right") ? rightCheck(count2,item,index) : leftCheck(count2,item,index);
+            lineMove[index] = lineMove[index] - count
+            item.style.marginLeft = lineMove[index] + "px";
+            if(lineMove[index] < -endPoint){
+                item.append(item.firstElementChild)
+                lineMove[index] = 0;
+                item.style.marginLeft = lineMove[index] + "px";
+            }
+
         }
     });
 }
 
-let textMove = setInterval(()=>{autoMove(1);},1)
 
-
-let rightCheck = (count,item,index) =>{
-    lineMove[index] = lineMove[index] + count
-    item.style.marginLeft = lineMove[index] + "px";
-    if(lineMove[index] >= 0){
-        item.prepend(item.lastElementChild);
-        lineMove[index] = -endPoint;
-        item.style.marginLeft = lineMove[index] + "px";
-    }
-}
-
-let leftCheck = (count,item,index) =>{
-    lineMove[index] = lineMove[index] - count
-    item.style.marginLeft = lineMove[index] + "px";
-    if(lineMove[index] < -endPoint){
-        item.append(item.firstElementChild)
-        lineMove[index] = 0;
-        item.style.marginLeft = lineMove[index] + "px";
-    }
-}
+let textMove = setInterval(()=>{
+    autoMove(1);
+},1)
 
 line.forEach((item,index)=>{
     item.querySelectorAll("span").forEach((spanItem,index)=>{
         spanItem.addEventListener("mouseenter",()=>{
             img[index].classList.add("show");
             clearInterval(textMove);
-            let aaa = Number(spanItem.parentElement.getAttribute("data-index"));
             textMove = setInterval(()=>{
-                // autoMove(0.2);
-                mouseUpAuto(aaa,0.2,1);
+                autoMove(0.2);
             },1)
         });
         spanItem.addEventListener("mouseleave",()=>{

@@ -11,7 +11,7 @@ nextbtn.addEventListener("click",() => {
     else {
         dummyNum = 0;
     }
-    move();
+    moveSlide();
     circleBtn();
 });
 
@@ -23,14 +23,14 @@ prevbtn.addEventListener("click",() => {
     else {
         dummyNum--;
     }
-    move();
+    moveSlide();
     circleBtn();
 });
 
 circlebtn.forEach((item, index) => {
     item.addEventListener("click",() => {
         dummyNum = index;
-        move();
+        moveSlide();
         circleBtn();
     });
 });
@@ -42,6 +42,6 @@ function circleBtn () {
     circlebtn[dummyNum].classList.add("on");
 } 
 
-function move () {
+function moveSlide () {
     slide.style.marginLeft =  dummyNum * -100 + "%";
 }
