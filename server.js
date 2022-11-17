@@ -90,7 +90,6 @@ app.post("/login",passport.authenticate('local', {failureRedirect : '/fail'}),fu
     //                                                   ↑ 실패시 위의 경로로 요청
     // ↓ 로그인 성공시 메인페이지로 이동
     res.redirect("/admin/home")
-    // res.send("로그인 성공");
 });
 
 // 로그인 실패시 fail 경로
