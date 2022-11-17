@@ -2,6 +2,7 @@
 header {
     display:flex; justify-content:center;
     background-color:#fff;
+    width:100%;
     .center {
         width:80%;
         padding:15px 0;
@@ -29,7 +30,7 @@ header {
                 width:0;
                 height:100vh;
                 z-index:99;
-                background-color:orange;
+                background-color:#c73d40;
                 display:flex; flex-direction:column; justify-content:space-around;
                 i {
                     text-align:end;
@@ -52,6 +53,7 @@ header {
                             }
                         }
                         > a {
+                            color:#fff;
                             span {
                                 width:100%; transition:all 0.2s;
                             }
@@ -65,6 +67,9 @@ header {
                             height:0;
                             overflow:hidden;
                             transition:all 0.5s;
+                            a {
+                                color:#fff;
+                            }
                         }
                     }
                 }
@@ -139,7 +144,7 @@ footer {
     background-color:#333;
     display:flex; justify-content:center;
     .center {
-        width:80%; height:200px;
+        width:80%;
         display:flex; flex-direction:column; align-items:center; justify-content:space-between;
         padding:100px 0;
         .logo {
@@ -148,9 +153,8 @@ footer {
             }
         }
         .sns {
-            display:flex;
+            display:flex; justify-content:space-around; width:50%;
             li {
-                margin:0 10px;
                 a {
                     font-size:35px; color:#fff; opacity:0.7;
                 }
@@ -266,13 +270,33 @@ footer {
     display:flex; justify-content:center;
     .center {
         width:80%;
-        input, select, button {border:1px solid #000;}
+        input, select, button, textarea {border:1px solid #000;}
         .add_prd {
             display:flex; flex-direction:column;
             margin:100px 0;
             .line {
                 margin:10px 0;
-                input, select, button {width:100%;}
+                input, select, button, textarea {width:100%;}
+            }
+        }
+        .prdList {
+            display:flex; margin-bottom:100px; justify-content:center;
+            li {
+                &::after {
+                    content:""; display:inline-block;
+                    width:2px; height:15px; background-color:#000;
+                    transform:translateY(2px);
+                    margin:0 50px;
+                }
+                a {
+                }
+                &:last-child {
+                    &::after {
+                        display:none;
+                    }
+                    a {
+                    }
+                }
             }
         }
         .prdwrap {
@@ -281,11 +305,11 @@ footer {
             }
             .list {
                 border-top:1px solid #000;
-                padding:50px 0;
+                padding:50px 0; white-space:pre-line;
                 .btns {
-                    margin-top:20px;
+                    margin-top:20px; display:flex;
                     a {
-                        border:1px solid #000;
+                        border:1px solid #000; margin-right:10px;
                     }
                 }
             }
@@ -394,15 +418,23 @@ footer {
                 width:100%;
                 position:relative;
                 overflow-x:hidden;
-                // 스크립트에서 버튼 클릭시
+                &:hover {
+                    .btns {
+                        .point_btns {
+                            img {opacity:1;}
+                            .left {left:20px;}
+                            .right {right:20px;}
+                        }
+                    }
+                }
                 .btns {
                     .point_btns {
                         img {
                             width:30px; position:absolute; top:50%; transform:translateY(-50%);
-                            cursor:pointer;
+                            cursor:pointer; transition:all 0.5s; opacity:0;
                         }
-                        .left {left:20px;}
-                        .right {right:20px;}
+                        .left {left:-100px;}
+                        .right {right:-100px;}
                     }
                     .circle_btns {
                         position:absolute; bottom:20px; left:50%; transform:translateX(-50%);
@@ -421,15 +453,68 @@ footer {
                     >div {
                         width:33.333333%; display:flex;
                         img {
-                            margin:0 auto;
+                            margin:0 auto; width:100%;
                         }
                     }
                 }
             }
         }
     }
+    .carousel {
+        h2 {color:#c73d40;}
+        display:flex; justify-content:center;
+        .center {
+            overflow:hidden;
+            .img_boxs {
+                width:100%;
+                position:relative; z-index:1;
+                img {
+                    position:absolute; top:0; left:0;
+                    width:100%;
+                    z-index:1;
+                    opacity:0;
+                    transition:all 0.5s;
+                }
+                .show {
+                    opacity:0.3;
+                }
+            }
+            .text_boxs {
+                z-index:10;
+                .line {
+                    display:flex; white-space:nowrap;
+                    >div {
+                        display:inline-flex;
+                    }
+                    span {
+                        display:block; box-sizing:border-box; padding:0 15px;
+                        font-size:60px;
+                        z-index:10;
+                    }
+                    .red {
+                        -webkit-text-fill-color:transparent;
+                        -webkit-text-stroke-width:1px;
+                        -webkit-text-stroke-color:#e8006c;
+                    }
+                    .blue {
+                        -webkit-text-fill-color:transparent;
+                        -webkit-text-stroke-width:1px;
+                        -webkit-text-stroke-color:#6dc4d8;
+                    }
+                }
+            }
+            .more {
+                margin-top:100px; display:block;
+                color:#000;
+                text-align:center;
+                // width:100%; display:block;
+                // border:1px solid #c73d40;
+            }
+        }
+    }
     .new_product {
         .center {
+            overflow:hidden;
             h2 {
                 color:#c73d40;
             }
@@ -467,27 +552,43 @@ footer {
                         }
                     }
                 }
+                .mid_boxs {
+                    .box {
+                        position:absolute; top:50%; left:50%; transform:translate(-50%, -50%);
+                        transition:all 0.5s; opacity:0; z-index:10;
+                    }
+                    .box.show {opacity:1;}
+                }
                 .right_boxs {
                     width:47%; border:2px solid #c73d40;
                     border-radius:25px; position:relative;
                     .box {
+                        width:65%;
                         position:absolute; top:60%; transform:translateY(-50%); right:50px;
                         opacity:0;
                         text-align:right;
                         transition:all 0.5s;
-                        h3 {margin-bottom:30px;}
-                        p {line-height:3;}
+                        display:flex; flex-direction:column; justify-content:space-around;
+                        height:100%;
+                        p {line-height:3; white-space:pre-line;}
                     }
                     .box.show {
                         opacity:1; top:50%;
                     }
                 }
-                .mid_boxs {
-                    .box {
-                        position:absolute; top:50%; left:50%; transform:translate(-50%, -50%);
-                        transition:all 0.5s; opacity:0;
+            }
+            .mobile_prd_list {
+                display:none; align-items:center;
+                width:200%; transition:all 0.5s;
+                .prd_box {
+                    width:33.333333%;
+                    a {
+                        display:flex; flex-direction:column;
+                        align-items:center;
+                        img {
+                            width:100%;
+                        }
                     }
-                    .box.show {opacity:1;}
                 }
             }
         }
@@ -511,6 +612,7 @@ footer {
                         border-bottom:10px double #fbf9e5;
                         text-align:center; padding:20px 0; margin-bottom:50px;
                         font-size:45px; color:#fbf9e5;
+                        br {display:none;}
                         span {
                             font-size:60px;
                         }
@@ -519,13 +621,6 @@ footer {
                         line-height:2; color:#fbf9e5;
                     }
                 }
-                // .right {
-                //     width:47%; border:2px solid #c73d40; border-radius:50px;
-                //     overflow:hidden; padding:10px;
-                //     img {
-                //         width:100%; border-radius:40px;
-                //     }
-                // }
             }
         }
     }
@@ -535,7 +630,7 @@ footer {
             .news_boxs {
                 width:100%; display:flex; justify-content:space-between;
                 .left_img {
-                    width:47%;
+                    width:47%; margin:auto 0;
                     img {
                         width:100%;
                     }
@@ -596,72 +691,15 @@ footer {
         }
     }
     .location {
-        h2 {color:#c73d40;}
-        display:flex; justify-content:center;
         .center {
-            width:80%; overflow:hidden;
-            .img_boxs {
-                width:100%;
-                position:relative; z-index:1;
-                img {
-                    position:absolute; top:0; left:0;
-                    width:100%;
-                    z-index:1;
-                    opacity:0;
-                    transition:all 0.5s;
-                }
-                .show {
-                    opacity:0.3;
-                }
+            .map {
+                width:100%; height:650px;
+                background-color:green;
             }
-            .text_boxs {
-                z-index:10;
-                .line {
-                    display:flex; white-space:nowrap;
-                    >div {
-                        display:inline-flex;
-                    }
-                    span {
-                        display:block; box-sizing:border-box; padding:0 15px;
-                        font-size:60px;
-                        z-index:10;
-                    }
-                    .red {
-                        -webkit-text-fill-color:transparent;
-                        -webkit-text-stroke-width:1px;
-                        -webkit-text-stroke-color:#e8006c;
-                    }
-                    .blue {
-                        -webkit-text-fill-color:transparent;
-                        -webkit-text-stroke-width:1px;
-                        -webkit-text-stroke-color:#6dc4d8;
-                    }
-                    // .play {
-                    //     animation: textSlide 45s linear infinite;
-                    // }
-                    // animation: textSlide 10s linear infinite;
-                    // @keyframes textSlide{
-                    //     0% {transform:translateX(0)}
-                    //     100% {transform: translateX(-100%)}
-                    // }
-                }
-                .line.right {
-                    // .right {
-                    //     animation: rightSlide 45s linear infinite;
-                    // }
-                    // animation: rightSlide 10s linear infinite;
-                    // @keyframes rightSlide{
-                    //     0% {transform: translateX(-100%)}
-                    //     100% {transform: translateX(0)}
-                    // }
-                }
-            }
-            .more {
-                margin-top:100px; display:block;
-                color:#000;
+            a {
+                display:block;
+                margin:30px 0;
                 text-align:center;
-                // width:100%; display:block;
-                // border:1px solid #c73d40;
             }
         }
     }
@@ -751,61 +789,6 @@ footer {
             li {
                 line-height:3;
                 list-style:circle;
-            }
-        }
-    }
-}
-
-// 매장 목록 화면 작업시작
-#store_wrap {
-    display:flex; justify-content:center;
-    .center {
-        width:80%;
-        form {
-            display:flex; justify-content:center;
-            margin:50px 0;
-        }
-        button {
-            background-color:#c73d40; color:#fff;
-            width:200px;                     height:40px;
-        }
-        .search_select {
-            width:70%;
-            .search_box {
-                display:flex; justify-content:space-between;
-                select {
-                    border:1px solid #000;
-                    width:40%;
-                    height:40px;
-                }
-            }
-        }
-        .search_input {
-            width:70%;
-            .search_box {
-                display:flex; justify-content:space-between;
-                height:40px;
-                input {
-                    border:1px solid #000;
-                    width:80.4%;
-                }
-            }
-        }
-
-        .store_list {
-            margin:100px 0;
-            .store_box {
-                padding:50px 0;
-                border-top:1px solid #c73d40;
-                h3 {
-                    margin-bottom:20px;
-                }
-                p {
-                    line-height:1.5;
-                }
-            }
-            &:last-child {
-                border-bottom:1px solid #c73d40;
             }
         }
     }
@@ -920,7 +903,7 @@ footer {
         }
         .bot {
             display:flex; justify-content:space-around;
-            width:70%; margin:0 auto;
+            margin:0 auto;
             padding:100px 0;
             .img_box {
                 width:45%;
@@ -934,6 +917,7 @@ footer {
                 display:flex; flex-direction:column; justify-content:space-around;
                 .taste {
                     margin-bottom:40px;
+                    white-space:pre-line;
                 }
                 .sub_text {
                     font-size:11px; color:#333;
@@ -959,10 +943,67 @@ footer {
     }
 }
 
+// 매장 목록 화면 작업시작
+#store_wrap {
+    display:flex; justify-content:center;
+    .center {
+        width:80%;
+        form {
+            display:flex; justify-content:center;
+            margin:50px 0;
+        }
+        button {
+            background-color:#c73d40; color:#fff;
+            width:200px;                     height:40px;
+        }
+        .search_select {
+            width:70%;
+            .search_box {
+                display:flex; justify-content:space-between;
+                select {
+                    border:1px solid #000;
+                    width:40%;
+                    height:40px;
+                }
+            }
+        }
+        .search_input {
+            width:70%;
+            .search_box {
+                display:flex; justify-content:space-between;
+                height:40px;
+                input {
+                    border:1px solid #000;
+                    width:80.4%;
+                }
+            }
+        }
+        .store_list {
+            margin:100px 0;
+            .store_box {
+                padding:50px 0;
+                border-top:1px solid #c73d40;
+                h3 {
+                    margin-bottom:20px;
+                }
+                p {
+                    line-height:1.5;
+                }
+            }
+            &:last-child {
+                border-bottom:1px solid #c73d40;
+            }
+        }
+        .no_store {
+            margin-bottom:50px;
+        }
+    }
+}
+
 // 사용자 게시판 페이지
 #board_list_wrap {
     display:flex; justify-content:center;
-    margin:100px 0;
+    padding:100px 0;
     .center {
         width:80%;
         h2 {
@@ -983,11 +1024,12 @@ footer {
             }
             .number {width:10%; text-align:center;}
             .classification {width:10%;}
-            .title {width:50%;}
+            // .title {width:50%;}
             .date {width:30%;}
         }
     }
 }
+
 // 사용자 게시글 상세 페이지
 #board_detail_wrap {
     white-space:pre-line;
@@ -1024,6 +1066,332 @@ footer {
             width:160px; margin:0 auto;
             height:50px; line-height:50px;
             color:#fff; background-color:#c73d40;
+        }
+    }
+}
+
+
+
+// 반응형 작업 시작
+// 1200 이하
+@media (max-width:1200px) {
+    // 풋터 작업 시작
+    footer {
+        .center {
+            padding:70px 0;
+            height:auto;
+            .logo {
+                margin-bottom:50px;
+            }
+            .sns {
+                margin-bottom:50px;
+            }
+            .address {
+                display:block;
+                margin-bottom:50px;
+                li {
+                    text-align:center;
+                    line-height:2;
+                    &::after {display:none;}
+                }
+            }
+        }
+    }
+    // 메인화면 작업 시작
+    #container {
+        .new_product {
+            .center {
+                .new_prd_list {
+                    .right_boxs {
+                        .box {
+                            width:60%;
+                            p {line-height:1.5;}
+                        }
+                    }
+                }
+            }
+        }
+        .bake_count {
+            .center {
+                .count_list {
+                    .count {
+                        .today_count {
+                            br {display:block;}
+                        }
+                    }
+                }
+            }
+        }
+    }
+    // 매장 목록 화면 작업시작
+    #store_wrap {
+        .center {
+            form {
+                .search_select {
+                    width:80%;
+                }
+                .search_input {
+                    width:80%;
+                }
+            }
+        }
+    }
+}
+
+// 1024 이하
+@media (max-width:1024px) {
+    // 헤더 작업 시작
+    header {
+        position:fixed; z-index:99;
+        .center {
+            .desktop_header {
+                display:none;
+            }
+            .mobile_header {
+                display:block;
+            }
+        }
+    }
+    // 풋터 작업 시작
+    footer {
+        .center {
+            .logo {
+            }
+            .sns {
+                width:85%;
+                li {
+                }
+            }
+            .address {
+                li {
+                }
+            }
+        }
+    }
+
+    // 메인화면 작업 시작
+    #container {
+        padding-top:90.67px;
+        >div {
+            .center {
+                width:90%;
+            }
+        }
+        .new_product {
+            .center {
+                .new_prd_list {
+                    display:none;
+                }
+                .mobile_prd_list {
+                    display:flex;
+                }
+            }
+        }
+        .bake_count {
+            .center {
+                .count_list {
+                    .count {
+                        .today_count {
+                            line-height:1.5;
+                            font-size:40px;
+                            br {display:block;}
+                            span {
+                                font-size:100px;
+                                margin:10px 0;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .news {
+            .center {
+                .news_boxs {
+                    .left_img {display:none;}
+                    .view {
+                        width:100%;
+                        height:700px;
+                    }
+                }
+            }
+        }
+    }
+    // about company 작업 시작
+    #about_company {
+        padding-top:90.67px;
+    }
+    // 창업안내 franchise 작업 시작
+    #franchise {
+        padding-top:90.67px;
+    }
+    // 도넛 메뉴 작업 시작 / menu_list
+    #menu_wrap {
+        padding-top:90.67px;
+        .center {
+            width:90%;
+            .menu_list {
+                .menu_box {
+                    width:25%;
+                }
+            }
+        }
+    }
+    // 도넛 상세 페이지 / doughnut_detail
+    #detail_wrap {
+        padding:200px 0;
+        .center {
+            width:90%;
+            .bot {
+                justify-content:space-between;
+            }
+        }
+    }
+    // 매장 목록 화면 작업시작
+    #store_wrap {
+        padding-top:90.67px;
+        .center {
+            width:90%;
+        }
+    }
+    // 사용자 게시판 페이지
+    #board_list_wrap {
+        padding:200px 0;
+        .center {
+            width:90%;
+            .brd_wrap {
+                .date {width: 40%;}
+            }
+        }
+    }
+    // 사용자 게시글 상세 페이지
+    #board_detail_wrap {
+        padding-top:90.67px;
+        .center {
+            width:90%;
+        }
+    }
+}
+// 768 이하
+@media (max-width:768px) {
+    // 풋터 작업 시작
+    footer {
+        .center {
+            width:90%;
+        }
+    }
+
+    // 메인화면 작업 시작
+    #container {
+        .bake_count {
+            .center {
+                .count_list {
+                    .count {
+                        p {
+                            margin-bottom:30px;
+                        }
+                    }
+                }
+            }
+        }
+        .news {
+            .center {
+                .news_boxs {
+                    .left_img {display:none;}
+                    .view {
+                        height:525px;
+                    }
+                }
+            }
+        }
+    }
+    // 도넛 메뉴 작업 시작 / menu_list
+    #menu_wrap {
+        .center {
+            .type_btns {
+                width:70%;
+            }
+            .menu_list {
+                .menu_box {
+                    width:33.333333%;
+                }
+            }
+        }
+    }
+    // 도넛 상세 페이지 / doughnut_detail
+    #detail_wrap {
+        .center {
+            .bot {
+                padding:0 0 100px 0;
+                flex-direction:column;
+                .img_box, .text_box {
+                    width:100%;
+                }
+                .text_box {
+                    margin-top:50px;
+                }
+            }
+        }
+    }
+    // 매장 목록 화면 작업시작
+    #store_wrap {
+        .center {
+            form {
+                .search_select {
+                    width:100%;
+                }
+                .search_input {
+                    width:100%;
+                }
+            }
+            .store_list {
+                .store_box {
+                    text-align:center;
+                    padding:30px 0;
+                }
+                .no_store {
+                    p {
+                        text-align:center;
+                    }
+                }
+            }
+        }
+    }
+    // 사용자 게시판 페이지
+    #board_list_wrap {
+        padding:200px 0;
+        .center {
+            width:90%;
+            .brd_wrap {
+                .date {width: 50%;}
+                .classification {
+                    display:none;
+                }
+            }
+        }
+    }
+}
+// 580 이하
+@media (max-width:580px) {
+    // 도넛 메뉴 작업 시작 / menu_list
+    #menu_wrap {
+        .center {
+            .type_btns {
+                width:80%;
+            }
+            .menu_list {
+                .menu_box {
+                    width:50%;
+                }
+            }
+        }
+    }
+    // 사용자 게시판 페이지
+    #board_list_wrap {
+        .center {
+            .brd_wrap {
+                .title {text-align:center;}
+                .date {display:none;}
+            }
         }
     }
 }

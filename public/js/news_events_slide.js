@@ -4,23 +4,26 @@ let downbtn = document.querySelector("#container .news .center .view .btns .down
 let eventDummyNum = 0;
 
 upbtn.addEventListener("click",() => {
-    // console.log(eventSlide.querySelectorAll("div").length);
-    console.log(eventDummyNum);
-    if (eventDummyNum < eventSlide.querySelectorAll("div").length - 5) {
-        eventDummyNum++;
+    if(window.matchMedia('screen and (min-width:1025px)').matches) {
+        lengthCheck(5);
     }
-    else {
-        eventDummyNum = 0;
+    else if (window.matchMedia('screen and (max-width:1024px) and (min-width:769px)').matches) {
+        lengthCheck(4);
+    }
+    else if (window.matchMedia('screen and (max-width:768px) and (min-width:580px)').matches) {
+        lengthCheck(3);
     }
     move();
 });
-
 downbtn.addEventListener("click",() => {
-    if (eventDummyNum == 0) {
-        eventDummyNum = eventSlide.querySelectorAll("div").length - 5;
+    if(window.matchMedia('screen and (max-width:1200px) and (min-width:1025px)').matches) {
+        lengthCheck(5);
     }
-    else {
-        eventDummyNum--;
+    else if (window.matchMedia('screen and (max-width:1024px) and (min-width:769px)').matches) {
+        lengthCheck(4);
+    }
+    else if (window.matchMedia('screen and (max-width:768px) and (min-width:580px)').matches) {
+        lengthCheck(3);
     }
     move();
 });
@@ -28,4 +31,13 @@ downbtn.addEventListener("click",() => {
 
 function move () {
     eventSlide.style.marginTop =  eventDummyNum * -175 + "px";
+}
+
+function lengthCheck (minus_num) {
+    if (eventDummyNum < eventSlide.querySelectorAll("div").length - minus_num) {
+        eventDummyNum++;
+    }
+    else {
+        eventDummyNum = 0;
+    }
 }

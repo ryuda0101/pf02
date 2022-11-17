@@ -34,6 +34,37 @@
                 </div>
             </div>
         </div>
+        <div class="carousel">
+            <div class="center">
+                <h2>Welcome to California Doughnut Club</h2>
+                <div class="img_boxs">
+                    <img src="/img/img01.jpg">
+                    <img src="/img/img02.jpg">
+                    <img src="/img/img03.jpg">
+                    <img src="/img/img04.jpg">
+                </div>
+                <div class="text_boxs">
+                    <div class="line" data-index="0">
+                        <span class="blue">California Doughnut Club</span>
+                        <span class="red">California Doughnut Club</span>
+                        <span class="blue">California Doughnut Club</span>
+                        <span class="red">California Doughnut Club</span>
+                    </div>
+                    <div class="line right" data-index="1">
+                        <span class="blue">California Doughnut Club</span>
+                        <span class="red">California Doughnut Club</span>
+                        <span class="blue">California Doughnut Club</span>
+                        <span class="red">California Doughnut Club</span>
+                    </div>
+                    <div class="line" data-index="2">
+                        <span class="blue">California Doughnut Club</span>
+                        <span class="red">California Doughnut Club</span>
+                        <span class="blue">California Doughnut Club</span>
+                        <span class="red">California Doughnut Club</span>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="new_product">
             <div class="center">
                 <h2>Limited Time</h2>
@@ -43,6 +74,11 @@
                         <li class="box"><p><%- prdData[i].name %></p></li>
                         <% } %>
                     </ul>
+                    <div class="mid_boxs">
+                        <% for(let i = 0; i < prdData.length; i++){ %>
+                        <div class="box"><img src="/upload/<%- prdData[i].thumbnail %>"></div>
+                        <% } %>
+                    </div>
                     <div class="right_boxs">
                         <% for(let i = 0; i < prdData.length; i++){ %>
                         <div class="box">
@@ -53,11 +89,16 @@
                         </div>
                         <% } %>
                     </div>
-                    <div class="mid_boxs">
-                        <% for(let i = 0; i < prdData.length; i++){ %>
-                        <div class="box"><img src="/upload/<%- prdData[i].thumbnail %>"></div>
-                        <% } %>
+                </div>
+                <div class="mobile_prd_list">
+                    <% for(let i = 0; i < prdData.length; i++){ %>
+                    <div class="prd_box">
+                        <a href="/doughnut/<%- prdData[i].num %>">
+                            <img src="/upload/<%- prdData[i].thumbnail %>">
+                            <p><%- prdData[i].name %></p>
+                        </a>
                     </div>
+                    <% } %>
                 </div>
             </div>
         </div>
@@ -66,7 +107,7 @@
                 <h2>Always New,<br>Always Fresh.</h2>
                 <div class="count_list">
                     <div class="count">
-                        <h3 class="today_count">오늘도 새로운 도넛을 <span>00</span>개 만큼 구웠습니다.</h3>
+                        <h3 class="today_count">오늘도 새로운 도넛을 <br><span>00</span>개<br> 만큼 구웠습니다.</h3>
                         <p>캘리포니아 도넛 클럽에서 매일 새로운 도넛을 즐겨보세요</p>
                         <p>캘리포니아 도넛 클럽은 매일 하루에 두번 도넛을 만듭니다.<br>매일 아침 11시와 오후 2시에 오시면 갓 만든 따듯한 도넛을 드실수 있습니다.</p>
                         <p>도넛 만드는 시간은 일부 매장에 따라 변경될 수 있습니다.<br>자세한 소식은 각 매장에 직접 문의하세요.</p>
@@ -103,34 +144,7 @@
         </div>
         <div class="location">
             <div class="center">
-                <h2>Welcome to California Doughnut Club</h2>
-                <!-- 카카오 지도 라이브러리 -->
-                <div class="img_boxs">
-                    <img src="/img/img01.jpg">
-                    <img src="/img/img02.jpg">
-                    <img src="/img/img03.jpg">
-                    <img src="/img/img04.jpg">
-                </div>
-                <div class="text_boxs">
-                    <div class="line" data-index="0">
-                        <span class="blue">California Doughnut Club</span>
-                        <span class="red">California Doughnut Club</span>
-                        <span class="blue">California Doughnut Club</span>
-                        <span class="red">California Doughnut Club</span>
-                    </div>
-                    <div class="line right" data-index="1">
-                        <span class="blue">California Doughnut Club</span>
-                        <span class="red">California Doughnut Club</span>
-                        <span class="blue">California Doughnut Club</span>
-                        <span class="red">California Doughnut Club</span>
-                    </div>
-                    <div class="line" data-index="2">
-                        <span class="blue">California Doughnut Club</span>
-                        <span class="red">California Doughnut Club</span>
-                        <span class="blue">California Doughnut Club</span>
-                        <span class="red">California Doughnut Club</span>
-                    </div>
-                </div>
+                <div class="map"></div>
                 <a class="more" href="/storelist">내 주변 가까운 캘리포니아 도넛클럽 매장을 찾아보세요</a>
             </div>
         </div>
@@ -140,11 +154,12 @@
     <script src="/js/main_slide.js"></script>
     <!-- Limited time 관련 스크립트 -->
     <script src="/js/limited_time.js"></script>
+    <script src="/js/limited_time_slide.js"></script>
     <!-- baking count 관련 스크립트 -->
     <script src="/js/baking_count.js"></script>
     <!-- news, events 관련 스크립트 -->
     <script src="/js/news_events_slide.js"></script>
     <!-- carousel 관련 스크립트 -->
-    <script src="/js/carousel.js"></script>
+    <script src="/js/carousel_before.js"></script>
 </body>
 </html>

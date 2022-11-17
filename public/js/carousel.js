@@ -1,6 +1,6 @@
-let line = document.querySelectorAll("#container .location .center .text_boxs .line");
-let carousel01 = document.querySelectorAll("#container .location .center .text_boxs .line .carousel01");
-let img = document.querySelectorAll("#container .location .center .img_boxs img");
+let line = document.querySelectorAll("#container .carousel .center .text_boxs .line");
+let carousel01 = document.querySelectorAll("#container .carousel .center .text_boxs .line .carousel01");
+let img = document.querySelectorAll("#container .carousel .center .img_boxs img");
 
 
 //자동으로 움직이는 수치값 초기값 0 // 세군데 각각 필요함

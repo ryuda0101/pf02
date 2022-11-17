@@ -164,8 +164,30 @@ app.get("/admin/prdlist",(req,res) => {
     });
 });
 
+app.get("/admin/doughnut",(req,res) => {
+    db.collection("prdlist").find({category:"도넛"}).toArray((err,result) => {
+        res.render("admin_product_list",{prdData:result, userData:req.user})
+    });
+});
+app.get("/admin/coffee",(req,res) => {
+    db.collection("prdlist").find({category:"커피"}).toArray((err,result) => {
+        res.render("admin_product_list",{prdData:result, userData:req.user})
+    });
+});
+app.get("/admin/tea",(req,res) => {
+    db.collection("prdlist").find({category:"티"}).toArray((err,result) => {
+        res.render("admin_product_list",{prdData:result, userData:req.user})
+    });
+});
+app.get("/admin/ade",(req,res) => {
+    db.collection("prdlist").find({category:"에이드"}).toArray((err,result) => {
+        res.render("admin_product_list",{prdData:result, userData:req.user})
+    });
+});
+
 // 상품을 새롭게 추가하면 db에 데이터가 추가되는 것
 app.post("/add/prdlist",upload.single('thumbnail'),(req,res) => {
+    console.log(req.body.originFile);
     if (req.file) {
         fileInfo = req.file.originalname;
     }
@@ -200,7 +222,7 @@ app.post("/prdUpdate",upload.single('thumbnailUp'),function(req,res){
         fileInfo = req.file.originalname;
     }
     else {
-        fileInfo = null;
+        fileInfo = req.body.originFile;
     }
     // 해당 게시글 번호에 맞는 게시글 수정 처리
     // req.body.~~ 경로의 정보를 받아오지 못하는 문제가 있음 / 해결, 수정시에도 파일 업로드 기능을 사용하기 위해 ,upload.single('thumbnailUp'), 코드를 쓰는것으로 해결

@@ -44,7 +44,7 @@
             <div class="store_list">
                 <!-- 매장 검색시 검색결과가 없는 경우 -->
                 <% if(storeData.length === 0){ %>
-                    <div>해당하는 매장이 없습니다.</div>
+                    <div class="no_store"><p>해당하는 매장이 없습니다.</p></div>
                 <% } else { %>
                     <% for(let i = 0; i < storeData.length; i++){ %>
                         <div class="store_box">
