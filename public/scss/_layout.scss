@@ -1251,6 +1251,9 @@ footer {
                     .view {
                         width:100%;
                         height:700px;
+                        .boxs {
+                            transform:translateY(-1px);
+                        }
                     }
                 }
             }

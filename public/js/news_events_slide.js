@@ -13,7 +13,7 @@ upbtn.addEventListener("click",() => {
     else if (window.matchMedia('screen and (max-width:768px) and (min-width:580px)').matches) {
         lengthCheck(3);
     }
-    move();
+    Upmove();
 });
 downbtn.addEventListener("click",() => {
     if(window.matchMedia('screen and (max-width:1200px) and (min-width:1025px)').matches) {
@@ -25,12 +25,16 @@ downbtn.addEventListener("click",() => {
     else if (window.matchMedia('screen and (max-width:768px) and (min-width:580px)').matches) {
         lengthCheck(3);
     }
-    move();
+    Downmove();
 });
 
 
-function move () {
+function Upmove () {
     eventSlide.style.marginTop =  eventDummyNum * -175 + "px";
+}
+
+function Downmove () {
+    eventSlide.style.marginTop =  eventDummyNum * 175 + "px";
 }
 
 function lengthCheck (minus_num) {

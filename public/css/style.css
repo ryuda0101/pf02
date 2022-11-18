@@ -1418,6 +1418,9 @@ footer .center .copyright {
     width: 100%;
     height: 700px;
   }
+  #container .news .center .news_boxs .view .boxs {
+    transform: translateY(-1px);
+  }
   #about_company {
     padding-top: 90.67px;
   }
