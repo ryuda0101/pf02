@@ -4,7 +4,9 @@ let ham_btns = document.querySelectorAll("header .center .mobile_header .btn spa
 let right_gnb = document.querySelector("header .center .mobile_header .right_menu");
 
 window.addEventListener("resize",() => {
-    ham_gnb_act();
+    ham_btn.addEventListener("click",() => {
+        ham_gnb_act();
+    });
 });
 
 
@@ -29,7 +31,7 @@ let ham_gnb_act = () => {
         for(let i = 0; i <ham_btns.length; i++) {
             ham_btns[i].classList.add("on");
         }
-        blur_bg.classList.add("on");
+        blur_bg.style.display = "block";
         mediaCheck();
     }
     else {
@@ -37,7 +39,7 @@ let ham_gnb_act = () => {
             ham_btns[i].classList.remove("on");
         }
         right_gnb.style.width = 0;
-        blur_bg.classList.remove("on");
+        blur_bg.style.display = "none";
     }
 }
 

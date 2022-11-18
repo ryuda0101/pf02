@@ -296,13 +296,6 @@ app.get ("/storeDelete/:no",function(req,res){
     })
 });
 
-// 관리자 게시판 페이지
-app.get("/admin/board",(req,res) => {
-    db.collection("board").find({}).toArray((err,result) => {
-        res.render("admin_brd_list",{brdData:result, userData:req.user});
-    });
-});
-
 // 관리자 게시글 작성 페이지
 app.get("/admin/board_insert",(req,res) => {
     res.render("admin_brd_insert",{userData:req.user});
@@ -464,24 +457,163 @@ app.get("/search/local",(req,res) => {
     else {
       res.redirect("/storelist");
     }
-  });
-
+});
 // 사용자가 보는 게시판 페이지
-// 새로운 소식
-app.get("/board/news", (req,res) => {
-    db.collection("board").find({classification:"news"}).toArray((err,result) => {
-        res.render("board_news_list",{brdData:result});
-    });
-});
-// 공지사항
-app.get("/board/notice", (req,res) => {
-    db.collection("board").find({classification:"notice"}).toArray((err,result) => {
-        res.render("board_notice_list",{brdData:result});
-    });
-});
 // 게시글 상세 페이지
 app.get("/detail/:no",(req,res) => {
     db.collection("board").find({num:Number(req.params.no)}).toArray((err,result) => {
         res.render("board_detail",{brdData:result});
     });
 });
+
+// let paging_act = () => {
+//     // 현재 접속한 페이지의 페이징 번호
+//     let pageNumber = (req.query.page == null) ? 1 : Number(req.query.page);
+//     // 한 페이지당 보여줄 데이터 갯수
+//     let perPage = 5;
+//     // 한 블록당 보여줄 페이징 갯수
+//     let blockCount = 3;
+//     // 현재 접속한 페이지의 블록
+//     let blockNum = Math.ceil(pageNumber / blockCount);
+//     // 블록 안에 있는 페이징의 시작번호
+//     let blockStart = ((blockNum - 1) * blockCount) + 1;
+//     // 블록 안에 있는 페이징의 끝번호
+//     let blockEnd = blockStart + blockCount - 1;
+//     // 전체 데이터값을 통해서 만들어져야하는 페이징 개수 계산
+//     let paging = Math.ceil(totalData / perPage);
+//     // 블록에서 마지막 번호가 페이징의 끝번호 보다 크다면, 페이징의 끝번호를 강제로 부여
+//     if (blockEnd > paging) {
+//         blockEnd = paging; 
+//     }
+//     // 블록의 총 개수
+//     let totalBlock = Math.ceil(paging / blockCount);
+//     // db에서 꺼내오는 데이터의 시작 순번값
+//     let startFrom = (pageNumber - 1) * perPage;
+// }
+
+
+// 게시판 페이징 작업
+// 관리자 게시판 페이지
+app.get("/admin/board",async (req,res) => {
+    // 현재 접속한 페이지의 페이징 번호
+    let pageNumber = (req.query.page == null) ? 1 : Number(req.query.page);
+    // 한 페이지당 보여줄 데이터 갯수
+    let perPage = 5;
+    // 한 블록당 보여줄 페이징 갯수
+    let blockCount = 2;
+    // 현재 접속한 페이지의 블록
+    let blockNum = Math.ceil(pageNumber / blockCount);
+    // 블록 안에 있는 페이징의 시작번호
+    let blockStart = ((blockNum - 1) * blockCount) + 1;
+    // 블록 안에 있는 페이징의 끝번호
+    let blockEnd = blockStart + blockCount - 1;
+    // db의 collection에있는 전체 객체의 갯수값
+    let totalData = await db.collection("board").countDocuments({});
+    // 전체 데이터값을 통해서 만들어져야하는 페이징 개수 계산
+    let paging = Math.ceil(totalData / perPage);
+    // 블록에서 마지막 번호가 페이징의 끝번호 보다 크다면, 페이징의 끝번호를 강제로 부여
+    if (blockEnd > paging) {
+        blockEnd = paging; 
+    }
+    // 블록의 총 개수
+    let totalBlock = Math.ceil(paging / blockCount);
+    // db에서 꺼내오는 데이터의 시작 순번값
+    let startDbData = (pageNumber - 1) * perPage;
+    
+    // db의 실제 값을 꺼내올 때 한 페이지당 몇개씩 가져올건지  skip() limit()함수로 설정
+    // sort()로 가져온 데이터 내림차순으로 정렬
+    // sort() 넣으면 순서 꼬이는 문제 있음
+    db.collection("board").find({}).skip(startDbData).limit(perPage).toArray((err,result) => {
+        res.render("admin_brd_list",{
+            brdData:result,
+            userData:req.user,
+            paging:paging,
+            pageNumber:pageNumber,
+            blockStart:blockStart,
+            blockEnd:blockEnd,
+            blockNum:blockNum,
+            totalBlock:totalBlock
+        });
+    });
+});
+
+// 사용자가 보는 게시판 페이지
+// 새로운 소식
+app.get("/board/news",async (req,res) => {
+    // 현재 접속한 페이지의 페이징 번호
+    let pageNumber = (req.query.page == null) ? 1 : Number(req.query.page);
+    // 한 페이지당 보여줄 데이터 갯수
+    let perPage = 5;
+    // 한 블록당 보여줄 페이징 갯수
+    let blockCount = 2;
+    // 현재 접속한 페이지의 블록
+    let blockNum = Math.ceil(pageNumber / blockCount);
+    // 블록 안에 있는 페이징의 시작번호
+    let blockStart = ((blockNum - 1) * blockCount) + 1;
+    // 블록 안에 있는 페이징의 끝번호
+    let blockEnd = blockStart + blockCount - 1;
+    // db의 collection에있는 전체 객체의 갯수값
+    let totalData = await db.collection("board").countDocuments({classification:"news"});
+    // 전체 데이터값을 통해서 만들어져야하는 페이징 개수 계산
+    let paging = Math.ceil(totalData / perPage);
+    // 블록에서 마지막 번호가 페이징의 끝번호 보다 크다면, 페이징의 끝번호를 강제로 부여
+    if (blockEnd > paging) {
+        blockEnd = paging; 
+    }
+    // 블록의 총 개수
+    let totalBlock = Math.ceil(paging / blockCount);
+    // db에서 꺼내오는 데이터의 시작 순번값
+    let startDbData = (pageNumber - 1) * perPage;
+
+    db.collection("board").find({classification:"news"}).skip(startDbData).limit(perPage).toArray((err,result) => {
+        res.render("board_news_list",{
+            brdData:result,
+            paging:paging,
+            pageNumber:pageNumber,
+            blockStart:blockStart,
+            blockEnd:blockEnd,
+            blockNum:blockNum,
+            totalBlock:totalBlock
+        });
+    });
+});
+// 공지사항
+app.get("/board/notice",async (req,res) => {
+    // 현재 접속한 페이지의 페이징 번호
+    let pageNumber = (req.query.page == null) ? 1 : Number(req.query.page);
+    // 한 페이지당 보여줄 데이터 갯수
+    let perPage = 5;
+    // 한 블록당 보여줄 페이징 갯수
+    let blockCount = 2;
+    // 현재 접속한 페이지의 블록
+    let blockNum = Math.ceil(pageNumber / blockCount);
+    // 블록 안에 있는 페이징의 시작번호
+    let blockStart = ((blockNum - 1) * blockCount) + 1;
+    // 블록 안에 있는 페이징의 끝번호
+    let blockEnd = blockStart + blockCount - 1;
+    // db의 collection에있는 전체 객체의 갯수값
+    let totalData = await db.collection("board").countDocuments({classification:"notice"});
+    // 전체 데이터값을 통해서 만들어져야하는 페이징 개수 계산
+    let paging = Math.ceil(totalData / perPage);
+    // 블록에서 마지막 번호가 페이징의 끝번호 보다 크다면, 페이징의 끝번호를 강제로 부여
+    if (blockEnd > paging) {
+        blockEnd = paging; 
+    }
+    // 블록의 총 개수
+    let totalBlock = Math.ceil(paging / blockCount);
+    // db에서 꺼내오는 데이터의 시작 순번값
+    let startDbData = (pageNumber - 1) * perPage;
+    
+    db.collection("board").find({classification:"notice"}).skip(startDbData).limit(perPage).toArray((err,result) => {
+        res.render("board_notice_list",{
+            brdData:result,
+            paging:paging,
+            pageNumber:pageNumber,
+            blockStart:blockStart,
+            blockEnd:blockEnd,
+            blockNum:blockNum,
+            totalBlock:totalBlock
+        });
+    });
+});
+

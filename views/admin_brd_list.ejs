@@ -6,11 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>관리자 게시판</title>
     <link rel="stylesheet" href="/css/style.css">
+    <!-- 폰트 관련 링크 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 </head>
 <body>
     <%- include("common/admin_header.ejs") %>
     <div id="board_list_wrap">
         <div class="center">
+            <!-- 게시글 보여주는 구간 -->
             <table class="brd_wrap">
                 <tr class="brd_top">
                     <th class="number">번호</th>
@@ -28,6 +33,7 @@
                     </tr>
                 <% }); %>
             </table>
+            <%- include("common/paging.ejs") %>
             <a class="add_btn" href="/admin/board_insert">게시글 작성</a>
         </div>
     </div>
