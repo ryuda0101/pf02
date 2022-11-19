@@ -15,49 +15,7 @@
     <%- include("common/admin_header.ejs") %>
     <div id="admin_prdlist">
         <div class="center">
-            <!-- 상품을 등록하는 form태그 구간 -->
-            <form class="add_prd" action="/add/prdlist" method="post" enctype="multipart/form-data">
-                <div class="line">
-                    <label for="category">카테고리</label>
-                    <select name="category" id="category">
-                        <option value="도넛">도넛</option>
-                        <option value="커피">커피</option>
-                        <option value="티">티</option>
-                        <option value="에이드">에이드</option>
-                    </select>
-                </div>
-                <div class="line">
-                    <label for="name">상품명</label>
-                    <input type="text" name="name" id="name" placeholder="상품명">
-                </div>
-                <div class="line">
-                    <label for="thumbnail">상품 이미지</label>
-                    <input type="file" name="thumbnail" id="thumbnail">
-                </div>
-                <div class="line">
-                    <label for="taste">상품 맛 설명</label>
-                    <textarea name="taste" id="taste" placeholder="상품 맛 설명"></textarea>
-                </div>
-                <div class="line">
-                    <label for="price">상품 가격</label>
-                    <input type="text" name="price" id="price" placeholder="상품 가격">
-                </div>
-                <div class="line">
-                    <label for="calorie">상품 칼로리 정보</label>
-                    <input type="text" name="calorie" id="calorie" placeholder="상품 칼로리 정보">
-                </div>
-                <div class="line">
-                    <label for="nutrition">상품 영양 정보</label>
-                    <textarea name="nutrition" id="nutrition">상품 영양 정보</textarea>
-                </div>
-                <div class="line">
-                    <label for="allergy">상품 알레르기 정보</label>
-                    <input type="text" name="allergy" id="allergy" placeholder="상품 알레르기 정보">
-                </div>
-                <div class="line">
-                <button type="submit">상품등록</button>
-                </div>
-            </form>
+            <a class="add_btn" href="/admin/prdadd">상품 신규 등록</a>
             <ul class="prdList">
                 <li><a href="/admin/prdlist">전체</a></li> 
                 <li><a href="/admin/doughnut">도넛</a></li> 

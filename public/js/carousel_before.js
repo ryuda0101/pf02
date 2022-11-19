@@ -1,7 +1,20 @@
+let text_boxs = document.querySelector("#container .carousel .center .text_boxs");
 // 움직이는 span태그들이 담긴 부모태그
 let line = document.querySelectorAll("#container .carousel .center .text_boxs .line");
 // 이미지가 담긴 부모태그
 let img = document.querySelectorAll("#container .carousel .center .img_boxs img");
+
+text_boxs.addEventListener("mouseenter",() => {
+    text_boxs.querySelectorAll(".line span").forEach((el,index) => {
+        el.classList.add("white");
+    });
+});
+text_boxs.addEventListener("mouseleave",() => {
+    text_boxs.querySelectorAll(".line span").forEach((el,index) => {
+        el.classList.remove("white");
+    });
+});
+
 
 
 // 자동으로 움직이는 수치값 초기값 0 // 세군데 각각 필요함

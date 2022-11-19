@@ -3,7 +3,7 @@ let prd_num = 0;
 
 let prd_auto_play = setInterval(() => {
     prd_slide();
-},3000)
+},1000)
 
 prd_view.addEventListener("mouseenter",() => {
     clearInterval(prd_auto_play);
@@ -11,7 +11,7 @@ prd_view.addEventListener("mouseenter",() => {
 prd_view.addEventListener("mouseleave",() => {
     prd_auto_play = setInterval(() => {
         prd_slide();
-    },3000)
+    },1000)
 });
 
 let prd_slide = () => {

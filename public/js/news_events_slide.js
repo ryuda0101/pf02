@@ -5,43 +5,48 @@ let eventDummyNum = 0;
 
 upbtn.addEventListener("click",() => {
     if(window.matchMedia('screen and (min-width:1025px)').matches) {
-        lengthCheck(5);
+        upLengthCheck(5);
     }
     else if (window.matchMedia('screen and (max-width:1024px) and (min-width:769px)').matches) {
-        lengthCheck(4);
+        upLengthCheck(4);
     }
     else if (window.matchMedia('screen and (max-width:768px) and (min-width:580px)').matches) {
-        lengthCheck(3);
+        upLengthCheck(3);
     }
-    Upmove();
+    move();
 });
 downbtn.addEventListener("click",() => {
-    if(window.matchMedia('screen and (max-width:1200px) and (min-width:1025px)').matches) {
-        lengthCheck(5);
+    if(window.matchMedia('screen and (min-width:1025px)').matches) {
+        downLengthCheck(5);
     }
     else if (window.matchMedia('screen and (max-width:1024px) and (min-width:769px)').matches) {
-        lengthCheck(4);
+        downLengthCheck(4);
     }
     else if (window.matchMedia('screen and (max-width:768px) and (min-width:580px)').matches) {
-        lengthCheck(3);
+        downLengthCheck(3);
     }
-    Downmove();
+    move();
 });
 
 
-function Upmove () {
+function move () {
     eventSlide.style.marginTop =  eventDummyNum * -175 + "px";
 }
 
-function Downmove () {
-    eventSlide.style.marginTop =  eventDummyNum * 175 + "px";
-}
-
-function lengthCheck (minus_num) {
+function downLengthCheck (minus_num) {
     if (eventDummyNum < eventSlide.querySelectorAll("div").length - minus_num) {
         eventDummyNum++;
     }
     else {
         eventDummyNum = 0;
+    }
+}
+
+function upLengthCheck (minus_num) {
+    if (eventDummyNum == 0) {
+        eventDummyNum = eventSlide.querySelectorAll("div").length - minus_num;
+    }
+    else {
+        eventDummyNum--;
     }
 }

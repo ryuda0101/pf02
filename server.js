@@ -157,11 +157,17 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage })
 
 // 관리자 상품 추가 페이지
+app.get("/admin/prdadd",(req,res) => {
+    res.render("admin_product_add",{userData:req.user})
+});
+
+// 관리자 상품 전체 리스트 페이지
 app.get("/admin/prdlist",(req,res) => {
     db.collection("prdlist").find({}).toArray((err,result) => {
         res.render("admin_product_list",{prdData:result, userData:req.user})
     });
 });
+
 
 app.get("/admin/doughnut",(req,res) => {
     db.collection("prdlist").find({category:"도넛"}).toArray((err,result) => {
@@ -249,6 +255,13 @@ app.get ("/prdDelete/:no",function(req,res){
 });
 
 // 관리자 매장 등록 페이지
+app.get("/admin/storeAdd",(req,res) => {
+    db.collection("storelist").find({}).toArray((err,result) => {
+        res.render("admin_store_add",{userData:req.user})
+    });
+});
+
+// 관리자 매장 전체 리스트 페이지
 app.get("/admin/storeList",(req,res) => {
     db.collection("storelist").find({}).toArray((err,result) => {
         res.render("admin_store_list",{storeData:result, userData:req.user})
