@@ -12,6 +12,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <!-- 스크롤시 등장효과 AOS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
 <body>
     <%- include("common/header.ejs") %>
@@ -43,8 +45,8 @@
         </div>
         <div class="carousel">
             <div class="center">
-                <h2>Welcome to California Doughnut Club</h2>
-                <div class="carousel_boxs">
+                <h2 data-aos="fade-up" data-aos-duration="1000">Welcome to California Doughnut Club</h2>
+                <div class="carousel_boxs" data-aos="fade-up" data-aos-duration="1000">
                     <div class="img_boxs">
                         <img src="/img/img01.jpg">
                         <img src="/img/img02.jpg">
@@ -76,19 +78,19 @@
         </div>
         <div class="new_product">
             <div class="center">
-                <h2>Limited Time</h2>
+                <h2 data-aos="fade-up" data-aos-duration="1000">Limited Time</h2>
                 <div class="new_prd_list">
-                    <ul class="left_boxs">
+                    <ul class="left_boxs" data-aos="fade-right" data-aos-duration="1000">
                         <% for(let i = 0; i < prdData.length; i++){ %>
                         <li class="box"><p><%- prdData[i].name %></p></li>
                         <% } %>
                     </ul>
-                    <div class="mid_boxs">
+                    <div class="mid_boxs" data-aos="fade-up" data-aos-duration="1000">
                         <% for(let i = 0; i < prdData.length; i++){ %>
                         <div class="box"><img src="/upload/<%- prdData[i].thumbnail %>"></div>
                         <% } %>
                     </div>
-                    <div class="right_boxs">
+                    <div class="right_boxs" data-aos="fade-left" data-aos-duration="1000">
                         <% for(let i = 0; i < prdData.length; i++){ %>
                         <div class="box">
                             <h3><%- prdData[i].name %></h3>
@@ -99,7 +101,7 @@
                         <% } %>
                     </div>
                 </div>
-                <div class="mobile_prd_list">
+                <div class="mobile_prd_list" data-aos="fade-up" data-aos-duration="1000">
                     <% for(let i = 0; i < prdData.length; i++){ %>
                     <div class="prd_box">
                         <a href="/doughnut/<%- prdData[i].num %>">
@@ -113,8 +115,8 @@
         </div>
         <div class="bake_count">
             <div class="center">
-                <h2>Always New,<br>Always Fresh.</h2>
-                <div class="count_list">
+                <h2 data-aos="fade-up" data-aos-duration="1000">Always New,<br>Always Fresh.</h2>
+                <div class="count_list" data-aos="fade-up" data-aos-duration="1000">
                     <div class="count">
                         <h3 class="today_count">오늘도 새로운 도넛을 <br><span>00</span>개<br> 만큼 구웠습니다.</h3>
                         <p>캘리포니아 도넛 클럽에서 매일 새로운 도넛을 즐겨보세요</p>
@@ -127,12 +129,12 @@
         </div>
         <div class="news">
             <div class="center">
-                <h2>News & Events</h2>
+                <h2 data-aos="fade-up" data-aos-duration="1000">News & Events</h2>
                 <div class="news_boxs">
-                    <div class="left_img">
+                    <div class="left_img" data-aos="fade-right" data-aos-duration="1000">
                         <img src="/img/news_img00.png">
                     </div>
-                    <div class="view">
+                    <div class="view" data-aos="fade-left" data-aos-duration="1000">
                         <div class="btns">
                             <img class="up" src="/img/up.png">
                             <img class="down" src="/img/down.png">
@@ -154,8 +156,8 @@
         <!-- <div class="mid_img"><img src="/img/main_img.png"></div> -->
         <div class="location">
             <div class="center">
-                <h2>Where's<br>California Doughnut Club</h2>
-                <div id="map"></div>
+                <h2 data-aos="fade-up" data-aos-duration="1000">Where's<br>California Doughnut Club</h2>
+                <div id="map" data-aos="fade-up" data-aos-duration="1000"></div>
                 <a class="more" href="/storelist"><img src="/img/right_b.png"> 내 주변 가까운 캘리포니아 도넛클럽 매장을 찾아보세요</a>
             </div>
         </div>
@@ -178,5 +180,8 @@
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b51f43f1b910999c76c4f91f07d522a3"></script>
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=APIKEY&libraries=LIBRARY"></script>
     <script src="/js/kakao_map.js"></script>
+    <!-- 스크롤시 등장효과 AOS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>AOS.init();</script>
 </body>
 </html>
