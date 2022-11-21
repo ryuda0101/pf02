@@ -16,7 +16,7 @@
     <div id="admin_prdlist">
         <div class="center">
             <a class="add_btn" href="/admin/prdadd">상품 신규 등록</a>
-            <ul class="prdList">
+            <ul class="prdList type_btns">
                 <li><a href="/admin/prdlist">전체</a></li> 
                 <li><a href="/admin/doughnut">도넛</a></li> 
                 <li><a href="/admin/coffee">커피</a></li> 
@@ -27,15 +27,21 @@
             <div class="prdwrap">
                 <% for(let i = 0; i < prdData.length; i++){ %>
                 <div class="list">
-                    <h3><%- prdData[i].num %></h3>
-                    <p><%- prdData[i].name %></p>
-                    <p><%- prdData[i].category %></p>
-                    <p><%- prdData[i].taste %></p>
-                    <p><%- prdData[i].price %></p>
-                    <p><%- prdData[i].calorie %></p>
-                    <p><%- prdData[i].nutrition %></p>
-                    <p><%- prdData[i].allergy %></p>
-                    <img src="/upload/<%- prdData[i].thumbnail %>">
+                    <div class="prd_box">
+                        <div class="text_box">
+                            <h3><%- prdData[i].num %></h3>
+                            <p><%- prdData[i].name %></p>
+                            <p><%- prdData[i].category %></p>
+                            <p><%- prdData[i].taste %></p>
+                            <p><%- prdData[i].price %></p>
+                            <p><%- prdData[i].calorie %></p>
+                            <p><%- prdData[i].nutrition %></p>
+                            <p><%- prdData[i].allergy %></p>
+                        </div>
+                        <div class="img_box">
+                            <img src="/upload/<%- prdData[i].thumbnail %>">
+                        </div>
+                    </div>
                     <div class="btns">
                         <a class="editBtn" href="#">수정하기</a>
                         <a class="deleteBtn" href="/prdDelete/<%- prdData[i].num %>">삭제하기</a>
@@ -44,29 +50,48 @@
                     <form class="updateForm" action="/prdUpdate" method="post" enctype="multipart/form-data">
                         <div class="flex_form">
                             <input type="hidden" name="hiddenNo" id="hidden" value="<%- prdData[i].num %>">
-                            <select name="categoryUp">
-                                <option value="도넛">도넛</option>
-                                <option value="커피">커피</option>
-                                <option value="티">티</option>
-                                <option value="에이드">에이드</option>
-                            </select>
-                            <label for="name">상품명</label>
-                            <input type="text" name="nameUp" id="name" value="<%- prdData[i].name %>">
-                            <label for="thumbnail">상품 이미지</label>
-                            <input type="hidden" name="originFile" value="<%- prdData[i].thumbnail %>">
-                            <input type="file" name="thumbnailUp" id="thumbnail">
-                            <label for="taste">상품 맛 설명</label>
-                            <textarea name="tasteUp" id="taste"><%- prdData[i].taste %></textarea>
-                            <label for="price">상품 가격</label>
-                            <input type="text" name="priceUp" id="price" value="<%- prdData[i].price %>">
-                            <label for="calorie">상품 칼로리 정보</label>
-                            <input type="text" name="calorieUp" id="calorie" value="<%- prdData[i].calorie %>">
-                            <label for="nutrition">상품 영양 정보</label>
-                            <textarea name="nutritionUp" id="nutrition"><%- prdData[i].nutrition %></textarea>
-                            <label for="allergy">상품 알레르기 정보</label>
-                            <input type="text" name="allergyUp" id="allergy" value="<%- prdData[i].allergy %>">
-                            <button type="submit">상품수정</button>
-                            <button class="cancel" type="button">상품수정 취소</button>
+                            <div class="line">
+                                <select name="categoryUp">
+                                    <option value="<%- prdData[i].category %>"><%- prdData[i].category %></option>
+                                    <option value="도넛">도넛</option>
+                                    <option value="커피">커피</option>
+                                    <option value="티">티</option>
+                                    <option value="에이드">에이드</option>
+                                </select>
+                            </div>
+                            <div class="line">
+                                <label for="name">상품명</label>
+                                <input type="text" name="nameUp" id="name" value="<%- prdData[i].name %>">
+                            </div>
+                            <div class="line">
+                                <label for="thumbnail">상품 이미지</label>
+                                <input type="hidden" name="originFile" value="<%- prdData[i].thumbnail %>">
+                                <input type="file" name="thumbnailUp" id="thumbnail">
+                            </div>
+                            <div class="line">
+                                <label for="taste">상품 맛 설명</label>
+                                <textarea name="tasteUp" id="taste"><%- prdData[i].taste %></textarea>
+                            </div>
+                            <div class="line">
+                                <label for="price">상품 가격</label>
+                                <input type="text" name="priceUp" id="price" value="<%- prdData[i].price %>">
+                            </div>
+                            <div class="line">
+                                <label for="calorie">상품 칼로리 정보</label>
+                                <input type="text" name="calorieUp" id="calorie" value="<%- prdData[i].calorie %>">
+                            </div>
+                            <div class="line">
+                                <label for="nutrition">상품 영양 정보</label>
+                                <textarea name="nutritionUp" id="nutrition"><%- prdData[i].nutrition %></textarea>
+                            </div>
+                            <div class="line">
+                                <label for="allergy">상품 알레르기 정보</label>
+                                <input type="text" name="allergyUp" id="allergy" value="<%- prdData[i].allergy %>">
+                            </div>
+                            <div class="line btns">
+                                <button type="submit">상품수정</button>
+                                <button class="cancel" type="button">상품수정 취소</button>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -78,5 +103,7 @@
     <script src="/js/admin_edit.js"></script>
     <!-- 삭제버튼 관련 스크립트 -->
     <script src="/js/deleteBtns.js"></script>
+    <!-- 상단 메뉴 클릭시 색상 바뀌는 것 관련 스크립트 -->
+    <script src="/js/menu_list.js"></script>
 </body>
 </html>

@@ -5,6 +5,9 @@ let prdUpdateForm = document.querySelectorAll(".updateForm")
 editBtn.forEach((el,index) => {
     el.addEventListener("click",(event) => {
         event.preventDefault();
+        prdUpdateForm.forEach((el,index) => {
+            el.style.display = "none";
+        });
         prdUpdateForm[index].style.display = "block";
     });
 });

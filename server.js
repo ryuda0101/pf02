@@ -64,7 +64,7 @@ MongoClient.connect("mongodb+srv://admin:qwer1234@testdb.g2xxxrk.mongodb.net/?re
 
 // 메인화면 get 요청
 app.get("/",(req,res) => {
-    db.collection("board").find({}).toArray((err,result_brd) => {
+    db.collection("board").find({}).sort({num:-1}).toArray((err,result_brd) => {
         db.collection("prdlist").find({category:"도넛"}).toArray((err,result) => {
             res.render("index.ejs",{prdData:result, brdData:result_brd});
         });

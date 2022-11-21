@@ -18,22 +18,39 @@
             <% for(let i = 0; i < brdData.length; i++){ %>
             <form action="/update/board" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="num" value="<%- brdData[i].num %>">
-                <label for="title">제목</label>
-                <input type="text" name="title" id="title" value="<%- brdData[i].title %>">
-                <label for="date">날짜</label>
-                <input type="text" name="date" value="<%- brdData[i].date %>">
-                <label for="classification">분류</label>
-                <select name="classification" id="classification">
-                    <option value="<%- brdData[i].classification %>"><%- brdData[i].classification %></option>
-                    <option value="news">공지사항</option>
-                    <option value="event">이벤트</option>
-                </select>
-                <label for="file">파일 첨부</label>
-                <input type="hidden" name="originFile" value="<%- brdData[i].file %>">
-                <input type="file" name="file" id="file">
-                <label for="context">내용</label>
-                <textarea name="context" id="context"> <%- brdData[i].context %></textarea>
-                <button type="submit">작성</button>
+                <div class="line">
+                    <label for="title">제목</label>
+                    <input type="text" name="title" id="title" value="<%- brdData[i].title %>">
+                </div>
+                <div class="line">
+                    <label for="date">날짜</label>
+                    <input type="text" name="date" value="<%- brdData[i].date %>">
+                </div>
+                <div class="line">
+                    <label for="date">날짜</label>
+                    <input type="text" name="date" value="<%- brdData[i].date %>">
+                </div>
+                <div class="line">
+                    <label for="classification">분류</label>
+                    <select name="classification" id="classification">
+                        <option value="<%- brdData[i].classification %>"><%- brdData[i].classification %></option>
+                        <option value="news">공지사항</option>
+                        <option value="event">이벤트</option>
+                    </select>
+                </div>
+                <div class="line">
+                    <label for="file">파일 첨부</label>
+                    <input type="hidden" name="originFile" value="<%- brdData[i].file %>">
+                    <input type="file" name="file" id="file">
+                </div>
+                <div class="line">
+                    <label for="context">내용</label>
+                    <textarea name="context" id="context"> <%- brdData[i].context %></textarea>
+                </div>
+                <div class="line btns">
+                    <button type="submit">작성</button>
+                    <a href="/admin/detail/<%- brdData[i].num %>">작성 취소</a>
+                </div>
             </form>
             <% } %>
         </div>

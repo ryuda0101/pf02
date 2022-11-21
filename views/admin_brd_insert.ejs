@@ -16,21 +16,34 @@
     <div id="board_insert_wrap">
         <div class="center">
             <form action="/add/board" method="post" enctype="multipart/form-data">
-                <label for="title">제목</label>
-                <input type="text" name="title" id="title">
-                <label for="date">날짜</label>
-                <input type="text" name="date">
-                <label for="classification">분류</label>
-                <select name="classification" id="classification">
-                    <option value>분류</option>
-                    <option value="notice">공지사항</option>
-                    <option value="news">이벤트</option>
-                </select>
-                <label for="file">파일 첨부</label>
-                <input type="file" name="file" id="file">
-                <label for="context">내용</label>
-                <textarea name="context" id="context"></textarea>
-                <button type="submit">작성</button>
+                <div class="line">
+                    <label for="title">제목</label>
+                    <input type="text" name="title" id="title">
+                </div>
+                <div class="line">
+                    <label for="date">날짜</label>
+                    <input type="text" name="date">
+                </div>
+                <div class="line">
+                    <label for="classification">분류</label>
+                    <select name="classification" id="classification">
+                        <option value>분류</option>
+                        <option value="notice">공지사항</option>
+                        <option value="news">이벤트</option>
+                    </select>
+                </div>
+                <div class="line">
+                    <label for="file">파일 첨부</label>
+                    <input type="file" name="file" id="file">
+                </div>
+                <div class="line">
+                    <label for="context">내용</label>
+                    <textarea name="context" id="context"></textarea>
+                </div>
+                <div class="line btns">
+                    <button type="submit">작성</button>
+                    <a href="/admin/board">작성 취소</a>
+                </div>
             </form>
         </div>
     </div>

@@ -280,12 +280,13 @@ footer {
         justify-content:center;
         align-items:center;
         flex-direction:column;
-        a {
+        a,p {
             margin-bottom:30px;
         }
         form {
             display:flex;
             flex-direction:column;
+            width:270px;
             .line {
                 display:flex; justify-content:space-between;
                 margin-bottom:15px;
@@ -302,7 +303,7 @@ footer {
     display:flex; justify-content:center;
     .center {
         width:80%;
-        input, select, button, textarea {border:1px solid #000;}
+        input, select, textarea {border:1px solid #000;}
         .add_btn {
             display:block; text-align:center;
             margin:50px 0;
@@ -310,14 +311,32 @@ footer {
                 text-decoration:underline;
             }
         }
+        // 관리자 상품 추가 페이지
         .add_prd {
             display:flex; flex-direction:column;
             margin:100px 0;
             .line {
-                margin:10px 0;
+                margin-bottom:20px;
+                label {
+                    display:block; margin-bottom:5px;
+                }
                 input, select, button, textarea {width:100%;}
+                input, select {height:30px;}
+                #thumbnail {height:auto;}
+                textarea {height:100px; padding-top:5px;}
+                button, a {
+                    display:block;
+                    width:160px; height:50px; margin:0 25px;
+                    color:#fff; background-color:#c73d40;
+                    text-align:center; line-height:50px;
+                    font-size:15px; font-weight:300; cursor:pointer;
+                }
+            }
+            .line.btns {
+                display:flex; justify-content:center;
             }
         }
+        // 관리자 상품 목록 페이지
         .prdList {
             display:flex; padding:50px 0; justify-content:center;
             border-top: 1px solid #000;
@@ -331,14 +350,16 @@ footer {
                     transform:translateY(2px);
                     margin:0 50px;
                 }
-                a {
-                }
                 &:last-child {
                     &::after {
                         display:none;
                     }
-                    a {
-                    }
+                }
+            }
+            li.on{
+                a{
+                    color:#c73d40;
+                    font-weight:bold;
                 }
             }
         }
@@ -349,16 +370,38 @@ footer {
             .list {
                 border-top:1px solid #000;
                 padding:50px 0; white-space:pre-line;
+                .prd_box {
+                    display:flex; justify-content:space-around;
+                }
                 .btns {
-                    margin-top:20px; display:flex;
+                    margin-top:20px; display:flex; justify-content:center;
                     a {
-                        border:1px solid #000; margin-right:10px;
+                        margin:0 25px;
+                        display:block;
+                        text-align:center;
+                        width:160px;
+                        height:50px; line-height:50px;
+                        color:#fff; background-color:#c73d40;
                     }
                 }
             }
             .updateForm {
                 .flex_form {
                     display:flex; flex-direction:column;
+                    input, select, button, textarea {width:100%;}
+                    .line {
+                        margin-bottom:20px;
+                        input, select {height:30px;}
+                        #thumbnail {height:auto;}
+                        textarea {height:100px; padding-top:5px;}
+                    }
+                    .line.btns {
+                        display:flex; justify-content:center;
+                        button {
+                            width:160px; height:50px; margin:0 25px;
+                            color:#fff; background-color:#c73d40; cursor:pointer;
+                        }
+                    }
                 }
             }
         }
@@ -368,7 +411,7 @@ footer {
 // 관리자 매장 관리 페이지
 #admin_storeList {
     display:flex; justify-content:center;
-    input, select, button {border:1px solid #000;}
+    input, select {border:1px solid #000;}
     .center {
         width:80%;
         .add_btn {
@@ -379,18 +422,36 @@ footer {
                 text-decoration:underline;
             }
         }
+        // 관리자 매장 추가 페이지
         .add_form {
             display:flex; flex-direction:column;
             margin:100px 0;
             .line {
-                input, select, button {width:100%;}
-                margin:10px 0;
+                margin-bottom:20px;
+                label {
+                    display:block; margin-bottom:5px;
+                }
+                input, select, button, textarea {width:100%;}
+                input, select {height:30px;}
+                #thumbnail {height:auto;}
+                textarea {height:100px; padding-top:5px;}
+                button, a {
+                    display:block;
+                    width:160px; height:50px; margin:0 25px;
+                    color:#fff; background-color:#c73d40;
+                    text-align:center; line-height:50px;
+                    font-size:15px; font-weight:300; cursor:pointer;
+                }
+            }
+            .line.btns {
+                display:flex; justify-content:center;
             }
             .address {
                 display:flex; justify-content:space-between;
                 input, select, button {width:49%;}
             }
         }
+        // 관리자 매장 목록 페이지
         .storewrap {
             &:last-child {
                 border-bottom:1px solid #000;
@@ -399,25 +460,39 @@ footer {
                 border-top:1px solid #000;
                 padding:50px 0;
                 .btns {
-                    margin-top:20px;
+                    margin:30px 0; display:flex; justify-content:center;
                     a {
-                        border:1px solid #000;
+                        margin:0 25px;
+                        display:block;
+                        text-align:center;
+                        width:160px;
+                        height:50px; line-height:50px;
+                        color:#fff; background-color:#c73d40;
                     }
                 }
                 .updateForm {
                     .line {
                         input, select, button {width:100%;}
-                        margin:10px 0;
+                        margin-bottom:20px;
+                        input, select {height:30px;}
+                        #thumbnail {height:auto;}
                     }
                     .address {
                         display:flex; justify-content:space-between;
-                        input, select, button {width:49%;}
+                        input, select {width:49%;}
+                    }
+                    .line.btns {
+                        button {
+                            width:160px; height:50px; margin:0 25px;
+                            color:#fff; background-color:#c73d40; cursor:pointer;
+                        }
                     }
                 }
             }
         }
     }
 }
+
 
 // 페이징 관련 페이지
 .paging_wrap {
@@ -474,8 +549,25 @@ footer {
     .center {
         width:80%;
         form {
-            input, select, button, textarea {border:1px solid #000; width:100%;}
-            textarea {height:500px;}
+            .line {
+                margin-bottom:30px;
+                label {
+                    display:block; margin-bottom:10px;
+                }
+                input, select, textarea {border:1px solid #000; width:100%; height:30px;}
+                #file {height:auto;}
+                textarea {height:500px;}
+                button,a {
+                    display:block;
+                    width:160px; height:50px; margin:0 25px;
+                    color:#fff; background-color:#c73d40;
+                    text-align:center; line-height:50px;
+                    font-size:15px; font-weight:300; cursor:pointer;
+                }
+            }
+            .line.btns {
+                display:flex; justify-content:center;
+            }
         }
     }
 }
@@ -484,7 +576,7 @@ footer {
 // 메인화면 작업 시작
 #container {
     >div {
-        display:flex; justify-content:center;
+        display:flex; justify-content:center; align-items:center;
         margin:100px 0;
         .center {
             width:80%;
@@ -560,7 +652,6 @@ footer {
     }
     .carousel {
         h2 {color:#c73d40;}
-        display:flex; justify-content:center;
         .center {
             overflow:hidden;
             .carousel_boxs {
@@ -605,7 +696,7 @@ footer {
                         }
                         .white {
                             -webkit-text-fill-color:transparent;
-                            -webkit-text-stroke-width:1px;
+                            -webkit-text-stroke-width:2px;
                             -webkit-text-stroke-color:#fff;
                         }
                     }
@@ -798,6 +889,9 @@ footer {
             }
         }
     }
+    // .mid_img {
+    //     width:100%;
+    // }
     .location {
         .center {
             h2 {color:#c73d40;}
@@ -1054,6 +1148,7 @@ footer {
                 .taste {
                     margin-bottom:40px;
                     white-space:pre-line;
+                    line-height:1.5;
                 }
                 .sub_text {
                     font-size:11px; color:#333;
@@ -1276,7 +1371,6 @@ footer {
         }
     }
 }
-
 // 1024 이하
 @media (max-width:1024px) {
     // 헤더 작업 시작

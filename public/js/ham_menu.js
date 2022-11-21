@@ -49,6 +49,7 @@ let right_gnb_down_img = document.querySelectorAll("header .center .mobile_heade
 
 right_gnb_menu.forEach((item, index) => {
     item.addEventListener("click", (event) => {
+        event.preventDefault();
         right_gnb_menu.forEach((item, index) => {
             item.querySelector(".ham_sub_gnb").style.height = "0";
         });

@@ -355,12 +355,13 @@ footer .center .copyright {
   align-items: center;
   flex-direction: column;
 }
-#admin_login .center a {
+#admin_login .center a, #admin_login .center p {
   margin-bottom: 30px;
 }
 #admin_login .center form {
   display: flex;
   flex-direction: column;
+  width: 270px;
 }
 #admin_login .center form .line {
   display: flex;
@@ -381,7 +382,7 @@ footer .center .copyright {
 #admin_prdlist .center {
   width: 80%;
 }
-#admin_prdlist .center input, #admin_prdlist .center select, #admin_prdlist .center button, #admin_prdlist .center textarea {
+#admin_prdlist .center input, #admin_prdlist .center select, #admin_prdlist .center textarea {
   border: 1px solid #000;
 }
 #admin_prdlist .center .add_btn {
@@ -398,10 +399,41 @@ footer .center .copyright {
   margin: 100px 0;
 }
 #admin_prdlist .center .add_prd .line {
-  margin: 10px 0;
+  margin-bottom: 20px;
+}
+#admin_prdlist .center .add_prd .line label {
+  display: block;
+  margin-bottom: 5px;
 }
 #admin_prdlist .center .add_prd .line input, #admin_prdlist .center .add_prd .line select, #admin_prdlist .center .add_prd .line button, #admin_prdlist .center .add_prd .line textarea {
   width: 100%;
+}
+#admin_prdlist .center .add_prd .line input, #admin_prdlist .center .add_prd .line select {
+  height: 30px;
+}
+#admin_prdlist .center .add_prd .line #thumbnail {
+  height: auto;
+}
+#admin_prdlist .center .add_prd .line textarea {
+  height: 100px;
+  padding-top: 5px;
+}
+#admin_prdlist .center .add_prd .line button, #admin_prdlist .center .add_prd .line a {
+  display: block;
+  width: 160px;
+  height: 50px;
+  margin: 0 25px;
+  color: #fff;
+  background-color: #c73d40;
+  text-align: center;
+  line-height: 50px;
+  font-size: 15px;
+  font-weight: 300;
+  cursor: pointer;
+}
+#admin_prdlist .center .add_prd .line.btns {
+  display: flex;
+  justify-content: center;
 }
 #admin_prdlist .center .prdList {
   display: flex;
@@ -424,6 +456,10 @@ footer .center .copyright {
 #admin_prdlist .center .prdList li:last-child::after {
   display: none;
 }
+#admin_prdlist .center .prdList li.on a {
+  color: #c73d40;
+  font-weight: bold;
+}
 #admin_prdlist .center .prdwrap:last-child {
   border-bottom: 1px solid #000;
 }
@@ -432,24 +468,63 @@ footer .center .copyright {
   padding: 50px 0;
   white-space: pre-line;
 }
+#admin_prdlist .center .prdwrap .list .prd_box {
+  display: flex;
+  justify-content: space-around;
+}
 #admin_prdlist .center .prdwrap .list .btns {
   margin-top: 20px;
   display: flex;
+  justify-content: center;
 }
 #admin_prdlist .center .prdwrap .list .btns a {
-  border: 1px solid #000;
-  margin-right: 10px;
+  margin: 0 25px;
+  display: block;
+  text-align: center;
+  width: 160px;
+  height: 50px;
+  line-height: 50px;
+  color: #fff;
+  background-color: #c73d40;
 }
 #admin_prdlist .center .prdwrap .updateForm .flex_form {
   display: flex;
   flex-direction: column;
+}
+#admin_prdlist .center .prdwrap .updateForm .flex_form input, #admin_prdlist .center .prdwrap .updateForm .flex_form select, #admin_prdlist .center .prdwrap .updateForm .flex_form button, #admin_prdlist .center .prdwrap .updateForm .flex_form textarea {
+  width: 100%;
+}
+#admin_prdlist .center .prdwrap .updateForm .flex_form .line {
+  margin-bottom: 20px;
+}
+#admin_prdlist .center .prdwrap .updateForm .flex_form .line input, #admin_prdlist .center .prdwrap .updateForm .flex_form .line select {
+  height: 30px;
+}
+#admin_prdlist .center .prdwrap .updateForm .flex_form .line #thumbnail {
+  height: auto;
+}
+#admin_prdlist .center .prdwrap .updateForm .flex_form .line textarea {
+  height: 100px;
+  padding-top: 5px;
+}
+#admin_prdlist .center .prdwrap .updateForm .flex_form .line.btns {
+  display: flex;
+  justify-content: center;
+}
+#admin_prdlist .center .prdwrap .updateForm .flex_form .line.btns button {
+  width: 160px;
+  height: 50px;
+  margin: 0 25px;
+  color: #fff;
+  background-color: #c73d40;
+  cursor: pointer;
 }
 
 #admin_storeList {
   display: flex;
   justify-content: center;
 }
-#admin_storeList input, #admin_storeList select, #admin_storeList button {
+#admin_storeList input, #admin_storeList select {
   border: 1px solid #000;
 }
 #admin_storeList .center {
@@ -469,10 +544,41 @@ footer .center .copyright {
   margin: 100px 0;
 }
 #admin_storeList .center .add_form .line {
-  margin: 10px 0;
+  margin-bottom: 20px;
 }
-#admin_storeList .center .add_form .line input, #admin_storeList .center .add_form .line select, #admin_storeList .center .add_form .line button {
+#admin_storeList .center .add_form .line label {
+  display: block;
+  margin-bottom: 5px;
+}
+#admin_storeList .center .add_form .line input, #admin_storeList .center .add_form .line select, #admin_storeList .center .add_form .line button, #admin_storeList .center .add_form .line textarea {
   width: 100%;
+}
+#admin_storeList .center .add_form .line input, #admin_storeList .center .add_form .line select {
+  height: 30px;
+}
+#admin_storeList .center .add_form .line #thumbnail {
+  height: auto;
+}
+#admin_storeList .center .add_form .line textarea {
+  height: 100px;
+  padding-top: 5px;
+}
+#admin_storeList .center .add_form .line button, #admin_storeList .center .add_form .line a {
+  display: block;
+  width: 160px;
+  height: 50px;
+  margin: 0 25px;
+  color: #fff;
+  background-color: #c73d40;
+  text-align: center;
+  line-height: 50px;
+  font-size: 15px;
+  font-weight: 300;
+  cursor: pointer;
+}
+#admin_storeList .center .add_form .line.btns {
+  display: flex;
+  justify-content: center;
 }
 #admin_storeList .center .add_form .address {
   display: flex;
@@ -489,23 +595,46 @@ footer .center .copyright {
   padding: 50px 0;
 }
 #admin_storeList .center .storewrap .list .btns {
-  margin-top: 20px;
+  margin: 30px 0;
+  display: flex;
+  justify-content: center;
 }
 #admin_storeList .center .storewrap .list .btns a {
-  border: 1px solid #000;
+  margin: 0 25px;
+  display: block;
+  text-align: center;
+  width: 160px;
+  height: 50px;
+  line-height: 50px;
+  color: #fff;
+  background-color: #c73d40;
 }
 #admin_storeList .center .storewrap .list .updateForm .line {
-  margin: 10px 0;
+  margin-bottom: 20px;
 }
 #admin_storeList .center .storewrap .list .updateForm .line input, #admin_storeList .center .storewrap .list .updateForm .line select, #admin_storeList .center .storewrap .list .updateForm .line button {
   width: 100%;
+}
+#admin_storeList .center .storewrap .list .updateForm .line input, #admin_storeList .center .storewrap .list .updateForm .line select {
+  height: 30px;
+}
+#admin_storeList .center .storewrap .list .updateForm .line #thumbnail {
+  height: auto;
 }
 #admin_storeList .center .storewrap .list .updateForm .address {
   display: flex;
   justify-content: space-between;
 }
-#admin_storeList .center .storewrap .list .updateForm .address input, #admin_storeList .center .storewrap .list .updateForm .address select, #admin_storeList .center .storewrap .list .updateForm .address button {
+#admin_storeList .center .storewrap .list .updateForm .address input, #admin_storeList .center .storewrap .list .updateForm .address select {
   width: 49%;
+}
+#admin_storeList .center .storewrap .list .updateForm .line.btns button {
+  width: 160px;
+  height: 50px;
+  margin: 0 25px;
+  color: #fff;
+  background-color: #c73d40;
+  cursor: pointer;
 }
 
 .paging_wrap {
@@ -561,17 +690,46 @@ footer .center .copyright {
 #board_insert_wrap .center, #board_edit_wrap .center {
   width: 80%;
 }
-#board_insert_wrap .center form input, #board_insert_wrap .center form select, #board_insert_wrap .center form button, #board_insert_wrap .center form textarea, #board_edit_wrap .center form input, #board_edit_wrap .center form select, #board_edit_wrap .center form button, #board_edit_wrap .center form textarea {
+#board_insert_wrap .center form .line, #board_edit_wrap .center form .line {
+  margin-bottom: 30px;
+}
+#board_insert_wrap .center form .line label, #board_edit_wrap .center form .line label {
+  display: block;
+  margin-bottom: 10px;
+}
+#board_insert_wrap .center form .line input, #board_insert_wrap .center form .line select, #board_insert_wrap .center form .line textarea, #board_edit_wrap .center form .line input, #board_edit_wrap .center form .line select, #board_edit_wrap .center form .line textarea {
   border: 1px solid #000;
   width: 100%;
+  height: 30px;
 }
-#board_insert_wrap .center form textarea, #board_edit_wrap .center form textarea {
+#board_insert_wrap .center form .line #file, #board_edit_wrap .center form .line #file {
+  height: auto;
+}
+#board_insert_wrap .center form .line textarea, #board_edit_wrap .center form .line textarea {
   height: 500px;
+}
+#board_insert_wrap .center form .line button, #board_insert_wrap .center form .line a, #board_edit_wrap .center form .line button, #board_edit_wrap .center form .line a {
+  display: block;
+  width: 160px;
+  height: 50px;
+  margin: 0 25px;
+  color: #fff;
+  background-color: #c73d40;
+  text-align: center;
+  line-height: 50px;
+  font-size: 15px;
+  font-weight: 300;
+  cursor: pointer;
+}
+#board_insert_wrap .center form .line.btns, #board_edit_wrap .center form .line.btns {
+  display: flex;
+  justify-content: center;
 }
 
 #container > div {
   display: flex;
   justify-content: center;
+  align-items: center;
   margin: 100px 0;
 }
 #container > div .center {
@@ -666,10 +824,6 @@ footer .center .copyright {
   margin: 0 auto;
   width: 100%;
 }
-#container .carousel {
-  display: flex;
-  justify-content: center;
-}
 #container .carousel h2 {
   color: #c73d40;
 }
@@ -729,7 +883,7 @@ footer .center .copyright {
 }
 #container .carousel .center .carousel_boxs .text_boxs .line .white {
   -webkit-text-fill-color: transparent;
-  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-width: 2px;
   -webkit-text-stroke-color: #fff;
 }
 #container .carousel .center .more {
@@ -1238,6 +1392,7 @@ footer .center .copyright {
 #detail_wrap .center .bot .text_box .taste {
   margin-bottom: 40px;
   white-space: pre-line;
+  line-height: 1.5;
 }
 #detail_wrap .center .bot .text_box .sub_text {
   font-size: 11px;
