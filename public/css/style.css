@@ -582,6 +582,7 @@ footer .center .copyright {
   margin-bottom: 80px;
 }
 #container .top_btn {
+  z-index: 99;
   margin: 0;
   position: fixed;
   bottom: 30px;
