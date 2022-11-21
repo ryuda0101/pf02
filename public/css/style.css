@@ -33,6 +33,7 @@ body {
   line-height: 1;
   background-color: #fffbed;
   font-family: "Noto Sans KR", sans-serif;
+  overflow-x: hidden;
 }
 
 button {
@@ -115,7 +116,8 @@ header .center .mobile_header .right_menu .ham_gnb > li {
 header .center .mobile_header .right_menu .ham_gnb > li .engMenu {
   display: none;
 }
-header .center .mobile_header .right_menu .ham_gnb > li > a {
+header .center .mobile_header .right_menu .ham_gnb > li > p {
+  cursor: pointer;
   color: #fff;
   font-size: 25px;
   margin-bottom: 30px;
@@ -123,12 +125,12 @@ header .center .mobile_header .right_menu .ham_gnb > li > a {
   justify-content: space-between;
   align-items: center;
 }
-header .center .mobile_header .right_menu .ham_gnb > li > a img {
+header .center .mobile_header .right_menu .ham_gnb > li > p img {
   width: 25px;
   height: 15px;
   transition: all 0.5s;
 }
-header .center .mobile_header .right_menu .ham_gnb > li > a .turn {
+header .center .mobile_header .right_menu .ham_gnb > li > p .turn {
   transform: rotateX(180deg);
 }
 header .center .mobile_header .right_menu .ham_gnb > li .ham_sub_gnb {

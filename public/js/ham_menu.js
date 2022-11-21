@@ -48,8 +48,7 @@ let right_gnb_menu = document.querySelectorAll("header .center .mobile_header .r
 let right_gnb_down_img = document.querySelectorAll("header .center .mobile_header .right_menu .ham_gnb >li >a img");
 
 right_gnb_menu.forEach((item, index) => {
-    item.addEventListener("click", (event) => {
-        event.preventDefault();
+    item.addEventListener("click", () => {
         right_gnb_menu.forEach((item, index) => {
             item.querySelector(".ham_sub_gnb").style.height = "0";
         });
@@ -57,6 +56,7 @@ right_gnb_menu.forEach((item, index) => {
             el.classList.remove("turn");
         });
         let length_num = item.querySelectorAll("ul li").length;
+        console.log(length_num);
         item.querySelector(".ham_sub_gnb").style.height = 40 * length_num + "px";
         right_gnb_down_img[index].classList.add("turn");
     });

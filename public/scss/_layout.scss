@@ -45,7 +45,8 @@ header {
                     > li {
                         margin-bottom:50px;
                         .engMenu {display:none;}
-                        > a {
+                        > p {
+                            cursor:pointer;
                             color:#fff;
                             font-size:25px;
                             margin-bottom:30px;
