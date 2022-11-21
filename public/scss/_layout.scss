@@ -762,6 +762,7 @@ footer {
                 .right_boxs {
                     width:47%; border:2px solid #c73d40;
                     border-radius:25px; position:relative;
+                    z-index:-1;
                     .box {
                         width:65%;
                         position:absolute; top:60%; transform:translateY(-50%); right:50px;

@@ -960,6 +960,7 @@ footer .center .copyright {
   border: 2px solid #c73d40;
   border-radius: 25px;
   position: relative;
+  z-index: -1;
 }
 #container .new_product .center .new_prd_list .right_boxs .box {
   width: 65%;
