@@ -49,16 +49,8 @@
             </form>
         </div>
     </div>
-    <script>
-        let deleteBtn = document.querySelector(".deleteBtn");
-
-        deleteBtn.addEventListener("click",(event) => {
-            check = confirm("삭제하시겠습니까?")
-            if(!check) {
-                event.preventDefault();
-            }
-        })
-    </script>
+    <!-- 삭제버튼 관련 스크립트 -->
+    <script src="/js/deleteBtn.js"></script>
     <!-- 시/도 구/군 선택 위한 스크립트 -->
     <script src="/js/hangjungdong.js"></script>
     <script src="/js/storeselect.js"></script>

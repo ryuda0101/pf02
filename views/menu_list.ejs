@@ -38,17 +38,7 @@
         </div>
     </div>
     <%- include("common/footer.ejs") %>
-
-    <script>
-        let currentPath = window.location.pathname;
-        const typeBtns = document.querySelectorAll(".type_btns li");
-
-        typeBtns.forEach((item,index)=>{
-           let childRef = item.querySelector("a").getAttribute("href");
-           if(currentPath === childRef){
-                item.classList.add("on");
-           }
-        });
-    </script>
+    <!-- 상단 메뉴 클릭시 색상 바뀌는 것 관련 스크립트 -->
+    <script src="/js/menu_list.js"></script>
 </body>
 </html>

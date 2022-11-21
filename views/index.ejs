@@ -16,6 +16,9 @@
 <body>
     <%- include("common/header.ejs") %>
     <div id="container">
+        <div class="top_btn">
+            <img src="/img/up.png">
+        </div>
         <div class="slider">
             <div class="center">
                 <div class="view">
@@ -32,7 +35,7 @@
                     </div>
                     <div class="wide">
                         <div class="slide01"><img src="/img/slide01.png"></div>
-                        <div class="slide02"><img src="/img/slide02.png"></div>
+                        <div class="slide02"><a href="/detail/1"><img src="/img/slide02.png"></a></div>
                         <div class="slide03"><img src="/img/slide03.png"></div>
                     </div>
                 </div>
@@ -46,7 +49,7 @@
                         <img src="/img/img01.jpg">
                         <img src="/img/img02.jpg">
                         <img src="/img/img03.jpg">
-                        <img src="/img/img04.jpg">
+                        <img src="/img/img05.jpg">
                     </div>
                     <div class="text_boxs">
                         <div class="line" data-index="0">
@@ -150,12 +153,15 @@
         </div>
         <div class="location">
             <div class="center">
-                <div class="map"></div>
-                <a class="more" href="/storelist">내 주변 가까운 캘리포니아 도넛클럽 매장을 찾아보세요</a>
+                <h2>Where's<br>California Doughnut Club</h2>
+                <div id="map"></div>
+                <a class="more" href="/storelist"><img src="/img/right_b.png"> 내 주변 가까운 캘리포니아 도넛클럽 매장을 찾아보세요</a>
             </div>
         </div>
     </div>
     <%- include("common/footer.ejs") %>
+    <!-- 우측 하단 top 버튼 관련 스크립트 -->
+    <script src="/js/up.js"></script>
     <!-- 메인화면 슬라이더 관련 스크립트 -->
     <script src="/js/main_slide.js"></script>
     <!-- Limited time 관련 스크립트 -->
@@ -167,5 +173,9 @@
     <script src="/js/news_events_slide.js"></script>
     <!-- carousel 관련 스크립트 -->
     <script src="/js/carousel_before.js"></script>
+    <!-- 카카오 맵 관련 스크립트 -->
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b51f43f1b910999c76c4f91f07d522a3"></script>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=APIKEY&libraries=LIBRARY"></script>
+    <script src="/js/kakao_map.js"></script>
 </body>
 </html>

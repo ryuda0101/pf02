@@ -536,7 +536,7 @@ app.get("/admin/board",async (req,res) => {
     // db의 실제 값을 꺼내올 때 한 페이지당 몇개씩 가져올건지  skip() limit()함수로 설정
     // sort()로 가져온 데이터 내림차순으로 정렬
     // sort() 넣으면 순서 꼬이는 문제 있음
-    db.collection("board").find({}).skip(startDbData).limit(perPage).toArray((err,result) => {
+    db.collection("board").find({}).sort({num:-1}).skip(startDbData).limit(perPage).toArray((err,result) => {
         res.render("admin_brd_list",{
             brdData:result,
             userData:req.user,
@@ -578,7 +578,7 @@ app.get("/board/news",async (req,res) => {
     // db에서 꺼내오는 데이터의 시작 순번값
     let startDbData = (pageNumber - 1) * perPage;
 
-    db.collection("board").find({classification:"news"}).skip(startDbData).limit(perPage).toArray((err,result) => {
+    db.collection("board").find({classification:"news"}).sort({num:-1}).skip(startDbData).limit(perPage).toArray((err,result) => {
         res.render("board_news_list",{
             brdData:result,
             paging:paging,
@@ -617,7 +617,7 @@ app.get("/board/notice",async (req,res) => {
     // db에서 꺼내오는 데이터의 시작 순번값
     let startDbData = (pageNumber - 1) * perPage;
     
-    db.collection("board").find({classification:"notice"}).skip(startDbData).limit(perPage).toArray((err,result) => {
+    db.collection("board").find({classification:"notice"}).sort({num:-1}).skip(startDbData).limit(perPage).toArray((err,result) => {
         res.render("board_notice_list",{
             brdData:result,
             paging:paging,
