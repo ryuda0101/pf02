@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="/css/style.css">
     <!-- 아이콘 관련 링크 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <!-- 파비콘 관련 링크 -->
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="img/favicon.ico" type="image/x-icon">
 </head>
 <body>
     <div id="admin_login">
@@ -17,11 +20,11 @@
             <form action="/login" method="post">
                 <div class="line">
                     <label for="adminId">아이디</label>
-                    <input type="text" name="adminId" id="adminId">
+                    <input type="text" name="adminId" id="adminId" value="admin">
                 </div>
                 <div class="line">
                     <label for="adminPass">비밀번호</label>
-                    <input type="password" name="adminPass" id="adminPass">
+                    <input type="password" name="adminPass" id="adminPass" value="1234">
                 </div>
                 <button type="submit">로그인</button>
             </form>

@@ -24,7 +24,7 @@ const multer  = require('multer')
 const app = express();
 
 // 포트번호 변수로 세팅
-const port = process.env.PORT || 8000;
+const port = process.env.PORT || 8080;
 // const port = 8080;
 
 
